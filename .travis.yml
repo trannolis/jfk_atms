@@ -14,7 +14,7 @@ script:
     - make tests
 
 # deploy to heroku
-deploy:
-    - provider: heroku
-      api_key: $HEROKU_API_KEY
-      app: sd-game-api
+#deploy:
+#    - provider: heroku
+#      api_key: $HEROKU_API_KEY
+#      app: sd-game-api
