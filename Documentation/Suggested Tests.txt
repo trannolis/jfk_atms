@@ -1,0 +1,14 @@
+There are functionally 3 subjects within the framework of the the AFT. An air traffic controller,a plane user, and an administrator.
+
+Suggested Tests
+
+-User Login. Ensure that users have to login into a website, or sign up with an account.
+
+-User Sign Up Security. Only users who are designated by the administrator are allowed to sign up for an account. This process needs to be authenicated in some way.
+The login for user sign in must also be secure in some way
+
+-User Login Security. Two Way authentication should be used for logins.
+
+-At the current stage we can implement a basic login system, and implement security measures later
+
+More test should be developed for other scenarios
