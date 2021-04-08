@@ -65,19 +65,22 @@ class Flight:
     return ...
 
   def setArrivalTime(self, time):
-    """Setters for arrival and depature times and locations"""
+    """Setter for arrival time"""
     self.arrivalTime = time
     return True
 
   def setDepartureTime(self, time):
+    """Setter for departure time"""
     self.departureTime = time
     return True
 
   def changeArrivalLocation(self,location):
+    """Setter for arrival location"""
     self.arrivalLocation = location
     return True
 
   def changeDepatureLocation(self,location):
+    """Setter for departure location"""
     self.departureLocation = location
     return True
 
