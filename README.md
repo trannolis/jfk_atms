@@ -16,18 +16,6 @@ Once the contents of the repository are stored onto your computer, you first nee
 
 Afterwards, it is suggested to run `python3 app.py`. When a working version of the website for jfk_atm is available, it would be suggested to navigate to `localhost:8000`
 
-### Client
-
-### Server
-
-##### tests
-
-##### prod
-
-##### docs
-
-###### dev_env
-
 # Requirements
 
 ## Glossary
@@ -45,7 +33,9 @@ Afterwards, it is suggested to run `python3 app.py`. When a working version of t
 
 ### Communication
 
-* Air Traffic 
+* Pilots are notified of any changes to their flight's intended gate or runway.
+* Pilots and Air Traffic Controllers are able to communicate through the system
+* Air Traffic Controllers are notified of changes to an aircraft's position
 
 ### Database
 
@@ -60,3 +50,9 @@ Afterwards, it is suggested to run `python3 app.py`. When a working version of t
 * Users can find the relevant information of a particular aircraft, including
  * Aircraft Location
  * Flight Details
+* Air Traffic Controllers can change the gate that an airplane to scheduled to arrive at
+* Air Traffic Controllers can chnage the runway that an airplane is scheduled to arrive/or depart at
+* Identity Verfication is required for confirming a change to the database
+* Safety Verification by the system if required for confirming a change to the database
+* Airplanes automatically relay their location to the database
+* Pilots can confirm that they are on the runway or gate when they have reached said location
