@@ -7,7 +7,7 @@ class Air_Traffic_Controller:
     self.password = Password #this needs to be hidden
     self.airport = Airport
 
-  def getflights-api(self):
+  def getflights_api(self):
     """For the air traffic controller to be able to see all the flights"""
     return ...
   def requestFlightUpdate(self, flightid):
@@ -114,6 +114,7 @@ class Airport:
     """updates status of runway1"""
     self.runway1 = new_status
     return True
+
   def updateRunway2(self, new_status):
      """updates status of runway2"""
     self.runway2 = new_status
