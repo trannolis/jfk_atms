@@ -16,6 +16,24 @@ Once the contents of the repository are stored onto your computer, you first nee
 
 Afterwards, it is suggested to run `python3 app.py`. When a working version of the website for jfk_atm is available, it would be suggested to navigate to `localhost:8000`
 
+# Make Targets
+
+### prod
+
+Manages commits for the projects to ensure effective deployment of relevant servers.
+
+### tests
+
+Runs tests pertaining to the code to ensure that it compiles and formats correctly
+
+### dev_env
+
+Ensures that the terminal is situated with the correct files to have the appropriate development environment for the project
+
+### docs
+
+Ensures that the terminal starts in the correct directory to run relevant functions of the ATC
+
 # Requirements
 
 ## Glossary
@@ -54,3 +72,7 @@ Afterwards, it is suggested to run `python3 app.py`. When a working version of t
 * Safety Verification by the system if required for confirming a change to the database
 * Airplanes automatically relay their location to the database
 * Pilots can confirm that they are on the runway or gate when they have reached said location
+
+# Documentation
+
+Relevant documentation is located in `jfk_atms/documentation`
