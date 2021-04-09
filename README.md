@@ -47,9 +47,7 @@ Afterwards, it is suggested to run `python3 app.py`. When a working version of t
 
 ##### Air Traffic
 
-* Users can find the relevant information of a particular aircraft, including
- * Aircraft Location
- * Flight Details
+* Users can find the relevant information of a particular aircraft, including aircraft location and flight details
 * Air Traffic Controllers can change the gate that an airplane to scheduled to arrive at
 * Air Traffic Controllers can chnage the runway that an airplane is scheduled to arrive/or depart at
 * Identity Verfication is required for confirming a change to the database
