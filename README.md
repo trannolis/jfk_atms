@@ -1,4 +1,4 @@
-# Air Trafiic Management System
+# Air Trafic Management System
 
 ### Mission
 
