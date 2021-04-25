@@ -21,15 +21,5 @@ lint: FORCE
 dev_env: FORCE
 	pip install -r $(REQ_DIR)/requirements-dev.txt
 
-heroku:
-	# install heroku:
-	curl https://cli-assets.heroku.com/install.sh | sh
-	heroku login
-	heroku apps:create jfk-atms
-	# set up heroku app as remote for this repo
-	heroku git:remote -a jfk-atms
-	heroku config:set PYTHONPATH="/app"
-	heroku config:set HOME="/app"
-
 docs: FORCE
 	cd source; make docs
