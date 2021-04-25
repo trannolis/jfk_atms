@@ -75,4 +75,4 @@ Ensures that the terminal starts in the correct directory to run relevant functi
 
 # Documentation
 
-Relevant documentation is located in `jfk_atms/documentation`
+Relevant documentation is located in [`jfk_atms/documentation`](https://github.com/trannolis/jfk_atms/tree/master/Documentation)
