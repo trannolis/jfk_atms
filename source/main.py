@@ -1,5 +1,5 @@
 #Import Flask Library
-#from flask import Flask, render_template, request, session, url_for, redirect
+from flask import Flask, render_template, request, session, url_for, redirect
 salt = "Tandon"
 
 from flask import Blueprint
@@ -8,21 +8,25 @@ from .extensions import bcrypt
 
 main = Blueprint('main', __name__)
 
-#pip install pipenv
-#pipenv install flask flask_pymongo python-dotenv
-#pipenv install 'mongo[srv]' dnspython python-dotenv
-#pipenv install flask flask_bcrypt python-dotenv
+#Dependencies:
+    #pip install pipenv
+    #pipenv install flask flask_pymongo python-dotenv
+    #pipenv install 'mongo[srv]' dnspython python-dotenv
+    #pipenv install flask flask_bcrypt python-dotenv
 
+"""
 @main.route('/')
 def index():
     pilot_collection = mongo.db.pilot
     pilot_collection.insert({'username': 'nick_user', 'password': '123', 'firstName': 'Nick', 'lastName' : 'Tran'})
     return '<h1> "Added Pilot" </h1>'
+"""
 
 #Define a route to hello function
 @main.route('/')
 def hello():
-    return render_template('index.html')
+    is_atc = request.args[]
+    return render_template('landing.html')
 
 #Define route for login
 @main.route('/login')
