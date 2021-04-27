@@ -1,5 +1,37 @@
 #Import Flask Library
 from flask import Flask, render_template, request, session, url_for, redirect
+
+salt = "Tandon"
+
+from flask import Blueprint
+from .extensions import mongo
+from .extensions import bcrypt
+
+main = Blueprint('main', __name__)
+
+#Dependencies:
+    #pip install pipenv
+    #pipenv install flask flask_pymongo python-dotenv
+    #pipenv install 'mongo[srv]' dnspython python-dotenv
+    #pipenv install flask flask_bcrypt python-dotenv
+
+"""
+@main.route('/')
+def index():
+    pilot_collection = mongo.db.pilot
+    pilot_collection.insert({'username': 'nick_user', 'password': '123', 'firstName': 'Nick', 'lastName' : 'Tran'})
+    return '<h1> "Added Pilot" </h1>'
+"""
+
+#Define a route to hello function
+@main.route('/')
+def hello():
+    is_atc = request.args[]
+    return render_template('landing.html')
+
+#Define route for login
+@main.route('/login')
+=======
 from flask_mongoengine import MongoEngine
 from flask_pymongo import PyMongo
 from flask_bcrypt import Bcrypt
@@ -15,21 +47,6 @@ bcrypt = Bcrypt(app)
 #brew tap mongodb/brew
 #brew install mongocli
 
-app.config['MONGODB_SETTINGS'] = {
-    'db': 'your_database',
-    'host': 'localhost',
-    'port': 27017
-}
-db = MongoEngine()
-db.init_app(app)
-
-class User(db.Document):
-    username = db.StringField(required=True)
-    password = db.StringField(required=True)
-    firstname = db.StringField(required=True)
-    lastname = db.StringField(required=True)
-    atc = db.BooleanField(required=True)    #0 is ATC and 1 is Pilot
-
 #Define a route to hello function
 @app.route('/')
 def hello():
@@ -37,16 +54,19 @@ def hello():
 
 #Define route for login
 @app.route('/login')
+
 def login():
     return render_template('login.html')
 
 #Define route for register
-@app.route('/register')
+
+@main.route('/register')
 def register():
     return render_template('register.html')
 
 #Authenticates the login
-@app.route('/loginAuth', methods=['GET', 'POST'])
+
+@main.route('/loginAuth', methods=['GET', 'POST'])
 def loginAuth():
     #grabs information from the forms
     username_input = request.form['username']
@@ -60,7 +80,6 @@ def loginAuth():
       return render_template('login.html', error=error)
     else:
       hashed_password = bcrypt.hashpw(password_input, salt)
-
 
     #cursor used to send queries
     cursor = conn.cursor()
@@ -83,7 +102,7 @@ def loginAuth():
         return render_template('login.html', error=error)
 
 #Authenticates the register
-@app.route('/registerAuth', methods=['GET', 'POST'])
+@main.route('/registerAuth', methods=['GET', 'POST'])
 def registerAuth():
     #grabs information from the forms
     username = request.form['username']
@@ -111,7 +130,7 @@ def registerAuth():
     return render_template('index.html')
 
 
-@app.route('/home')
+@main.route('/home')
 def home():
     user = session['username']
     cursor = conn.cursor();
@@ -122,7 +141,7 @@ def home():
     return render_template('home.html', username=user, posts=data)
 
 
-@app.route('/post', methods=['GET', 'POST'])
+@main.route('/post', methods=['GET', 'POST'])
 def post():
     username = session['username']
     cursor = conn.cursor();
@@ -133,7 +152,7 @@ def post():
     cursor.close()
     return redirect(url_for('home'))
 
-@app.route('/select_blogger')
+@main.route('/select_blogger')
 def select_blogger():
     #check that user is logged in
     #username = session['username']
@@ -146,7 +165,7 @@ def select_blogger():
     cursor.close()
     return render_template('select_blogger.html', user_list=data)
 
-@app.route('/show_posts', methods=["GET", "POST"])
+@main.route('/show_posts', methods=["GET", "POST"])
 def show_posts():
     poster = request.args['poster']
     cursor = conn.cursor();
@@ -156,12 +175,12 @@ def show_posts():
     cursor.close()
     return render_template('show_posts.html', poster_name=poster, posts=data)
 
-@app.route('/logout')
+@main.route('/logout')
 def logout():
     session.pop('username')
     return redirect('/')
 
-app.secret_key = 'some key that you will never guess'
+main.secret_key = 'some key that you will never guess'
 #Run the app on localhost port 5000
 #debug = True -> you don't have to restart flask
 #for changes to go through, TURN OFF FOR PRODUCTION
