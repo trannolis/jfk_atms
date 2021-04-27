@@ -1,19 +1,19 @@
 #Import Flask Library
 from flask import Flask, render_template, request, session, url_for, redirect
-import pymysql.cursors
+#from flask_mongoengine import MongoEngine
 
 #Initialize the app from Flask
 app = Flask(__name__)
 
-#Configure MySQL
-conn = pymysql.connect(host='localhost',
-                       port = 8889,
-                       user='root',
-                       password='root',
-                       db='FlaskDemo',
-                       charset='utf8mb4',
-                       cursorclass=pymysql.cursors.DictCursor)
-
+"""
+app.config['MONGODB_SETTINGS'] = {
+    'db': 'your_database',
+    'host': 'localhost',
+    'port': 27017
+}
+db = MongoEngine()
+db.init_app(app)
+"""
 #Define a route to hello function
 @app.route('/')
 def hello():
@@ -94,7 +94,7 @@ def home():
     cursor.close()
     return render_template('home.html', username=user, posts=data)
 
-        
+
 @app.route('/post', methods=['GET', 'POST'])
 def post():
     username = session['username']
@@ -111,7 +111,7 @@ def select_blogger():
     #check that user is logged in
     #username = session['username']
     #should throw exception if username not found
-    
+
     cursor = conn.cursor();
     query = 'SELECT DISTINCT username FROM blog'
     cursor.execute(query)
@@ -133,7 +133,7 @@ def show_posts():
 def logout():
     session.pop('username')
     return redirect('/')
-        
+
 app.secret_key = 'some key that you will never guess'
 #Run the app on localhost port 5000
 #debug = True -> you don't have to restart flask
