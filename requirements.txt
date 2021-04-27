@@ -1,2 +1,5 @@
 flask
 flake8
+
+#pip install flask-mongoengine
+#pip install flask-bcrypt

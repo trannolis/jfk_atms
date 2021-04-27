@@ -1,11 +1,19 @@
 #Import Flask Library
 from flask import Flask, render_template, request, session, url_for, redirect
 from flask_mongoengine import MongoEngine
-from flask.ext.bcrypt import Bcrypt
+from flask_pymongo import PyMongo
+from flask_bcrypt import Bcrypt
+salt = "Tandon"
 
 #Initialize the app from Flask
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
+
+#pip install flask-mongoengine
+#pip install flask-bcrypt
+#pip install flask_pymongo
+#brew tap mongodb/brew
+#brew install mongocli
 
 app.config['MONGODB_SETTINGS'] = {
     'db': 'your_database',
@@ -16,11 +24,11 @@ db = MongoEngine()
 db.init_app(app)
 
 class User(db.Document):
-    username = db.StringField()
-    password = db.StringField()
-    firstname = db.StringField()
-    lastname = db.StringField()
-    atc = db.Bool()           #0 is ATC and 1 is Pilot
+    username = db.StringField(required=True)
+    password = db.StringField(required=True)
+    firstname = db.StringField(required=True)
+    lastname = db.StringField(required=True)
+    atc = db.BooleanField(required=True)    #0 is ATC and 1 is Pilot
 
 #Define a route to hello function
 @app.route('/')
@@ -41,8 +49,18 @@ def register():
 @app.route('/loginAuth', methods=['GET', 'POST'])
 def loginAuth():
     #grabs information from the forms
-    username = request.form['username']
-    password = request.form['password']
+    username_input = request.form['username']
+    password_input = request.form['password']
+    #hash the password from the forum
+    hashed = bcrypt.hashpw(password_input, salt)
+
+    #get user's hashed password from the your_database
+    user = User.objects(username = username_input).get_or_404()
+    if 404():
+      return render_template('login.html', error=error)
+    else:
+      hashed_password = bcrypt.hashpw(password_input, salt)
+
 
     #cursor used to send queries
     cursor = conn.cursor()
@@ -70,6 +88,7 @@ def registerAuth():
     #grabs information from the forms
     username = request.form['username']
     password = request.form['password']
+    hashed = bcrypt.hashpw(password, salt)
 
     #cursor used to send queries
     cursor = conn.cursor()
@@ -89,7 +108,7 @@ def registerAuth():
         cursor.execute(ins, (username, password))
         conn.commit()
         cursor.close()
-        return render_template('index.html')
+    return render_template('index.html')
 
 
 @app.route('/home')
