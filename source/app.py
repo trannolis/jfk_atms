@@ -1,11 +1,12 @@
 #Import Flask Library
 from flask import Flask, render_template, request, session, url_for, redirect
-#from flask_mongoengine import MongoEngine
+from flask_mongoengine import MongoEngine
+from flask.ext.bcrypt import Bcrypt
 
 #Initialize the app from Flask
 app = Flask(__name__)
+bcrypt = Bcrypt(app)
 
-"""
 app.config['MONGODB_SETTINGS'] = {
     'db': 'your_database',
     'host': 'localhost',
@@ -13,7 +14,14 @@ app.config['MONGODB_SETTINGS'] = {
 }
 db = MongoEngine()
 db.init_app(app)
-"""
+
+class User(db.Document):
+    username = db.StringField()
+    password = db.StringField()
+    firstname = db.StringField()
+    lastname = db.StringField()
+    atc = db.Bool()           #0 is ATC and 1 is Pilot
+
 #Define a route to hello function
 @app.route('/')
 def hello():
