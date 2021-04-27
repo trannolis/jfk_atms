@@ -1,5 +1,5 @@
-flask
-flake8
+flask==1.1.2
+flake8==3.9.1
 
 <<<<<<< HEAD
 pip install pipenv

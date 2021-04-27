@@ -37,15 +37,3 @@ class Endpoints(Resource):
         """
         endpoints = sorted(rule.rule for rule in api.app.url_map.iter_rules())
         return {"Available endpoints": endpoints}
-
-
-@api.route('/pets')
-class Pets(Resource):
-    """
-    This class supports fetching a list of all pets.
-    """
-    def get(self):
-        """
-        This method returns all pets.
-        """
-        return fetch_pets()
