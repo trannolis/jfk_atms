@@ -1,5 +1,6 @@
 #Import Flask Library
 from flask import Flask, render_template, request, session, url_for, redirect
+
 salt = "Tandon"
 
 from flask import Blueprint
@@ -30,15 +31,41 @@ def hello():
 
 #Define route for login
 @main.route('/login')
+=======
+from flask_mongoengine import MongoEngine
+from flask_pymongo import PyMongo
+from flask_bcrypt import Bcrypt
+salt = "Tandon"
+
+#Initialize the app from Flask
+app = Flask(__name__)
+bcrypt = Bcrypt(app)
+
+#pip install flask-mongoengine
+#pip install flask-bcrypt
+#pip install flask_pymongo
+#brew tap mongodb/brew
+#brew install mongocli
+
+#Define a route to hello function
+@app.route('/')
+def hello():
+    return render_template('index.html')
+
+#Define route for login
+@app.route('/login')
+
 def login():
     return render_template('login.html')
 
 #Define route for register
+
 @main.route('/register')
 def register():
     return render_template('register.html')
 
 #Authenticates the login
+
 @main.route('/loginAuth', methods=['GET', 'POST'])
 def loginAuth():
     #grabs information from the forms

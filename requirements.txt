@@ -1,7 +1,12 @@
 flask
 flake8
 
+<<<<<<< HEAD
 pip install pipenv
 pipenv install flask flask_pymongo python-dotenv
 pipenv install 'mongo[srv]' dnspython python-dotenv
 pipenv install flask flask_bcrypt python-dotenv
+=======
+#pip install flask-mongoengine
+#pip install flask-bcrypt
+>>>>>>> master
