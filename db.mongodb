@@ -1,0 +1,13 @@
+use('atms');
+
+
+db.atc.insertOne({ '_id': 1, 'username': 'wat', 'password': 'askjdhkas', 'firstName': 'a', 'lastName': 'b', 'email' : 'abc@def.com', 'phoneNumber' : '9283746501'});
+
+db.pilot.insertOne({ '_id': 1, 'username': 'wat', 'password': 'askjdhkas', 'firstName': 'a', 'lastName': 'b', 'email' : 'abc@def.com', 'phoneNumber' : '9283746501', 'airplaneId' : 'SA123', 'landStatus' : 1, 'takeoffStatus' : 0});
+
+db.airport.insertOne({'_id' : 'JFK'});
+
+db.airplane.insertOne({'_id' : 'Plane0'});
+
+db.flight.insertOne({'_id' : 'watever', 'arrivalTime' : ISODate(), 'departureTime' : ISODate(), 'departureLocation' : 'nowhere',
+  'arrivalLocation' : 'JFK', 'airplaneId' : 'Plane0'});
