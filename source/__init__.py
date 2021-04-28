@@ -3,6 +3,7 @@ from .extensions import mongo
 from .extensions import bcrypt
 from .main import main
 
+
 def create_app(config_object='source.settings'):
     app = Flask(__name__)
     app.config.from_object(config_object)
@@ -13,4 +14,3 @@ def create_app(config_object='source.settings'):
     app.register_blueprint(main)
 
     return app
-

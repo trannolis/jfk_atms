@@ -1,19 +1,18 @@
-#Import Flask Library
 from flask import Flask, render_template, request, session, url_for, redirect
 
-salt = "Tandon"
 
 from flask import Blueprint
 from .extensions import mongo
 from .extensions import bcrypt
 
+salt = "Tandon"
 main = Blueprint('main', __name__)
 
 #Dependencies:
-    #pip install pipenv
-    #pipenv install flask flask_pymongo python-dotenv
-    #pipenv install 'mongo[srv]' dnspython python-dotenv
-    #pipenv install flask flask_bcrypt python-dotenv
+#pip install pipenv
+#pipenv install flask flask_pymongo python-dotenv
+#pipenv install 'mongo[srv]' dnspython python-dotenv
+#pipenv install flask flask_bcrypt python-dotenv
 
 """
 @main.route('/')
@@ -75,7 +74,7 @@ def loginAuth():
     hashed = bcrypt.hashpw(password_input, salt)
 
     #get user's hashed password from the your_database
-    user = User.objects(username = username_input).get_or_404()
+    user = mongo.atms.atc.find("username" : username).find_one_or_404()
     if 404():
       return render_template('login.html', error=error)
     else:
