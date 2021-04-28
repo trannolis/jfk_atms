@@ -5,7 +5,6 @@ The endpoint called `endpoints` will return all available endpoints.
 
 from flask import Flask
 from flask_restx import Resource, Api
-from db import fetch_pets
 
 app = Flask(__name__)
 api = Api(app)
