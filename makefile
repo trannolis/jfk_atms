@@ -1,6 +1,5 @@
 LINTER = flake8
 SRC_DIR = source
-REQ_DIR = requirements
 
 FORCE:
 
@@ -19,7 +18,7 @@ lint: FORCE
 	$(LINTER) $(SRC_DIR)/*.py
 
 dev_env: FORCE
-	pip install -r requirements-dev.txt
+	pipenv install
 
 docs: FORCE
 	cd source; make docs
