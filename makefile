@@ -13,7 +13,7 @@ github: FORCE
 tests: lint unit
 
 unit: FORCE
-	python3 -m unittest $(TEST_DIR)/test_endpoints.py 
+	python -m unittest $(TEST_DIR)/test_endpoints.py 
 
 lint: FORCE
 	$(LINTER) $(SRC_DIR)/main.py
