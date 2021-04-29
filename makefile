@@ -18,7 +18,7 @@ lint: FORCE
 	$(LINTER) $(SRC_DIR)/*.py
 
 dev_env: FORCE
-	pipenv install
+	pipenv install --dev
 
 docs: FORCE
 	cd source; make docs
