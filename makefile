@@ -16,7 +16,7 @@ unit: FORCE
 	python3 -m unittest $(TEST_DIR)/test_endpoints.py 
 
 lint: FORCE
-	$(LINTER) $(SRC_DIR)/*.py
+	$(LINTER) $(SRC_DIR)/main.py
 
 dev_env: FORCE
 	pipenv install --dev

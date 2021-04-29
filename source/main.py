@@ -56,23 +56,23 @@ def registerAuth():
     hashed = bcrypt.hashpw(password, salt)
 
     #cursor used to send queries
-    cursor = conn.cursor()
-    #executes query
-    query = 'SELECT * FROM user WHERE username = %s'
-    cursor.execute(query, (username))
-    #stores the results in a variable
-    data = cursor.fetchone()
-    #use fetchall() if you are expecting more than 1 data row
-    error = None
-    if(data):
-        #If the previous query returns data, then user exists
-        error = "This user already exists"
-        return render_template('register.html', error = error)
-    else:
-        ins = 'INSERT INTO user VALUES(%s, %s)'
-        cursor.execute(ins, (username, password))
-        conn.commit()
-        cursor.close()
+    # cursor = conn.cursor()
+    # #executes query
+    # query = 'SELECT * FROM user WHERE username = %s'
+    # cursor.execute(query, (username))
+    # #stores the results in a variable
+    # data = cursor.fetchone()
+    # #use fetchall() if you are expecting more than 1 data row
+    # error = None
+    # if(data):
+    #     #If the previous query returns data, then user exists
+    #     error = "This user already exists"
+    #     return render_template('register.html', error = error)
+    # else:
+    #     ins = 'INSERT INTO user VALUES(%s, %s)'
+    #     cursor.execute(ins, (username, password))
+    #     conn.commit()
+    #     cursor.close()
     return render_template('index.html')
 
 
@@ -84,13 +84,13 @@ def home():
 
 @main.route('/post', methods=['GET', 'POST'])
 def post():
-    username = session['username']
-    cursor = conn.cursor();
-    blog = request.form['blog']
-    query = 'INSERT INTO blog (blog_post, username) VALUES(%s, %s)'
-    cursor.execute(query, (blog, username))
-    conn.commit()
-    cursor.close()
+    # username = session['username']
+    # cursor = conn.cursor();
+    # blog = request.form['blog']
+    # query = 'INSERT INTO blog (blog_post, username) VALUES(%s, %s)'
+    # cursor.execute(query, (blog, username))
+    # conn.commit()
+    # cursor.close()
     return redirect(url_for('home'))
 
 @main.route('/select_blogger')
@@ -99,21 +99,21 @@ def select_blogger():
     #username = session['username']
     #should throw exception if username not found
 
-    cursor = conn.cursor();
-    query = 'SELECT DISTINCT username FROM blog'
-    cursor.execute(query)
-    data = cursor.fetchall()
-    cursor.close()
+    # cursor = conn.cursor();
+    # query = 'SELECT DISTINCT username FROM blog'
+    # cursor.execute(query)
+    # data = cursor.fetchall()
+    # cursor.close()
     return render_template('select_blogger.html', user_list=data)
 
 @main.route('/show_posts', methods=["GET", "POST"])
 def show_posts():
-    poster = request.args['poster']
-    cursor = conn.cursor();
-    query = 'SELECT ts, blog_post FROM blog WHERE username = %s ORDER BY ts DESC'
-    cursor.execute(query, poster)
-    data = cursor.fetchall()
-    cursor.close()
+    # poster = request.args['poster']
+    # cursor = conn.cursor();
+    # query = 'SELECT ts, blog_post FROM blog WHERE username = %s ORDER BY ts DESC'
+    # cursor.execute(query, poster)
+    # data = cursor.fetchall()
+    # cursor.close()
     return render_template('show_posts.html', poster_name=poster, posts=data)
 
 @main.route('/logout')
