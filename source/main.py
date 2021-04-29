@@ -1,3 +1,17 @@
+"""
+This is the main function for the ATMS
+asdasd
+asd
+as
+das
+ads
+ads
+ads
+dsa
+dsa
+das
+"""
+
 from flask import render_template, request, session, url_for, redirect,\
     Blueprint
 from .extensions import mongo, bcrypt
@@ -127,3 +141,7 @@ def show_posts():
 def logout():
     session.pop('username')
     return redirect('/')
+
+
+if __name__ == "__main__":
+    pass

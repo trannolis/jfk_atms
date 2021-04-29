@@ -22,4 +22,4 @@ dev_env: FORCE
 	pipenv install --dev
 
 docs: FORCE
-	cd source; make docs
+	python -m pydoc -b
