@@ -34,14 +34,14 @@ def loginAuth():
     #hash the password from the forum
 
     #get user's hashed password from the your_database
-    user = mongo.atms.atc.find_one_or_404({"username" : username})
-    print(user[password])
+    user = mongo.db.atc.find_one_or_404({'username' : username_input})
+    print(user['password'])
     error = None
-    if(data):
+    if(not error):
         #creates a session for the the user
         #session is a built in
-        session['username'] = username
-        return redirect(url_for('home'))
+        session['username'] = username_input
+        return redirect(url_for('main.home'))
     else:
         #returns an error message to the html page
         error = 'Invalid login or username'
@@ -126,7 +126,6 @@ def logout():
     session.pop('username')
     return redirect('/')
 
-main.secret_key = 'some key that you will never guess'
 #Run the app on localhost port 5000
 #debug = True -> you don't have to restart flask
 #for changes to go through, TURN OFF FOR PRODUCTION
