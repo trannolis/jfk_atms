@@ -14,7 +14,7 @@ dnspython = "*"
 [dev-packages]
 flake8 = "*"
 nose = "*"
-coverage "*"
+coverage = "*"
 
 [requires]
 python_version = ">3.8"
