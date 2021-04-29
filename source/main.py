@@ -15,7 +15,7 @@ das
 from flask import render_template, request, session, url_for, redirect,\
     Blueprint
 from .extensions import mongo, bcrypt
-
+from random import randint
 main = Blueprint('main', __name__)
 
 
@@ -66,27 +66,25 @@ def registerAuth():
     # grabs information from the forms
     username = request.form['username']
     password = request.form['password']
+    first_name = requst.form['first']
+    last_name = request.form['last']
+    email = request.form['email']
+    phone_no = request.form['phone']
     hashed = bcrypt.generate_password_hash(password)
-    print(username, password, hashed)
+    
+    if mongo.db.atms.admin.find_one({'username': username_input}):
+        error = "This user already exists"
+        return render_template('register.html', error = error)
 
-    # cursor used to send queries
-    #  cursor = conn.cursor()
-    #  # executes query
-    #  query = 'SELECT * FROM user WHERE username = %s'
-    #  cursor.execute(query, (username))
-    #  # stores the results in a variable
-    #  data = cursor.fetchone()
-    #  # use fetchall() if you are expecting more than 1 data row
-    #  error = None
-    #  if(data):
-    #      # If the previous query returns data, then user exists
-    #      error = "This user already exists"
-    #      return render_template('register.html', error = error)
-    #  else:
-    #      ins = 'INSERT INTO user VALUES(%s, %s)'
-    #      cursor.execute(ins, (username, password))
-    #      conn.commit()
-    #      cursor.close()
+    mongo.atms.admin.insertOne(
+    {   '_id' : ObjectId(),
+        'username' : username,
+        'password' : password,
+        'firstName' : first_name,
+        'lastName' : last_name,
+        'email' : email,
+        'phone_no' : phone}
+    )
     return render_template('index.html')
 
 
