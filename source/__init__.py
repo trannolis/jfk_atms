@@ -1,6 +1,5 @@
 from flask import Flask
-from .extensions import mongo
-from .extensions import bcrypt
+from .extensions import mongo, bcrypt
 from .main import main
 
 

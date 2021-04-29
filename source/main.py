@@ -1,19 +1,7 @@
-from flask import Flask, render_template, request, session, url_for, redirect
+from flask import Flask, render_template, request, session, url_for, redirect, Blueprint
+from .extensions import mongo, bcrypt
 
-
-from flask import Blueprint
-from .extensions import mongo
-from .extensions import bcrypt
-
-salt = "Tandon"
 main = Blueprint('main', __name__)
-
-#Dependencies:
-#pip install pipenv
-#pipenv install flask flask_pymongo python-dotenv
-#pipenv install 'mongo[srv]' dnspython python-dotenv
-#pipenv install flask flask_bcrypt python-dotenv
-
 """
 @main.route('/')
 def index():
@@ -29,64 +17,25 @@ def hello():
 
 #Define route for login
 @main.route('/login')
-from flask_mongoengine import MongoEngine
-from flask_pymongo import PyMongo
-from flask_bcrypt import Bcrypt
-salt = "Tandon"
-
-#Initialize the app from Flask
-app = Flask(__name__)
-bcrypt = Bcrypt(app)
-
-#pip install flask-mongoengine
-#pip install flask-bcrypt
-#pip install flask_pymongo
-#brew tap mongodb/brew
-#brew install mongocli
-
-#Define a route to hello function
-@app.route('/')
-def hello():
-    return render_template('index.html')
-
-#Define route for login
-@app.route('/login')
-
 def login():
     return render_template('login.html')
 
 #Define route for register
-
 @main.route('/register')
 def register():
     return render_template('register.html')
 
 #Authenticates the login
-
 @main.route('/loginAuth', methods=['GET', 'POST'])
 def loginAuth():
     #grabs information from the forms
     username_input = request.form['username']
     password_input = request.form['password']
     #hash the password from the forum
-    hashed = bcrypt.hashpw(password_input, salt)
 
     #get user's hashed password from the your_database
-    user = mongo.atms.atc.find("username" : username).find_one_or_404()
-    if 404():
-      return render_template('login.html', error=error)
-    else:
-      hashed_password = bcrypt.hashpw(password_input, salt)
-
-    #cursor used to send queries
-    cursor = conn.cursor()
-    #executes query
-    query = 'SELECT * FROM user WHERE username = %s and password = %s'
-    cursor.execute(query, (username, password))
-    #stores the results in a variable
-    data = cursor.fetchone()
-    #use fetchall() if you are expecting more than 1 data row
-    cursor.close()
+    user = mongo.atms.atc.find_one_or_404({"username" : username})
+    print(user[password])
     error = None
     if(data):
         #creates a session for the the user
