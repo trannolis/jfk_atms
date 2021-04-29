@@ -12,6 +12,9 @@ mongo = {extras = ["srv"], version = "*"}
 dnspython = "*"
 
 [dev-packages]
+flake8 = "*"
+nose = "*"
+coverage "*"
 
 [requires]
-python_version = "3.8"
+python_version = ">3.8"
