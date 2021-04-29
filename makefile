@@ -1,5 +1,6 @@
 LINTER = flake8
 SRC_DIR = source
+TEST_DIR = tests
 
 FORCE:
 
@@ -12,7 +13,7 @@ github: FORCE
 tests: lint unit
 
 unit: FORCE
-	python3 -m unittest source.db
+	python3 -m unittest $(TEST_DIR)/test_endpoints.py 
 
 lint: FORCE
 	$(LINTER) $(SRC_DIR)/*.py
