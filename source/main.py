@@ -25,12 +25,10 @@ def index():
 #Define a route to hello function
 @main.route('/')
 def hello():
-    is_atc = request.args[]
     return render_template('landing.html')
 
 #Define route for login
 @main.route('/login')
-=======
 from flask_mongoengine import MongoEngine
 from flask_pymongo import PyMongo
 from flask_bcrypt import Bcrypt
