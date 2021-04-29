@@ -15,7 +15,6 @@ das
 from flask import render_template, request, session, url_for, redirect,\
     Blueprint
 from .extensions import mongo, bcrypt
-from random import randint
 main = Blueprint('main', __name__)
 
 
@@ -66,26 +65,24 @@ def registerAuth():
     # grabs information from the forms
     username = request.form['username']
     password = request.form['password']
-    first_name = requst.form['first']
-    last_name = request.form['last']
+    first_name = request.form['first_name']
+    last_name = request.form['last_name']
     email = request.form['email']
-    phone_no = request.form['phone']
+    phone_no = request.form['phone_no']
     hashed = bcrypt.generate_password_hash(password)
-    
-    if mongo.db.atms.admin.find_one({'username': username_input}):
-        error = "This user already exists"
-        return render_template('register.html', error = error)
 
-    mongo.atms.admin.insertOne(
-    {   '_id' : ObjectId(),
-        'username' : username,
-        'password' : password,
-        'firstName' : first_name,
-        'lastName' : last_name,
-        'email' : email,
-        'phone_no' : phone}
-    )
-    return render_template('index.html')
+    if mongo.db.admin.find_one({'username': username}):
+        error = "This user already exists"
+        return render_template('register.html', error=error)
+
+    mongo.db.admin.insert({
+        'username': username,
+        'password': hashed,
+        'firstName': first_name,
+        'lastName': last_name,
+        'email': email,
+        'phone_no': phone_no})
+    return render_template('landing.html')
 
 
 @main.route('/home')
