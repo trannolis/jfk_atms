@@ -1,15 +1,5 @@
 """
 This is the main function for the ATMS
-asdasd
-asd
-as
-das
-ads
-ads
-ads
-dsa
-dsa
-das
 """
 
 from flask import render_template, request, session, url_for, redirect,\
