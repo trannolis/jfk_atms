@@ -5,7 +5,6 @@ This is the main function for the ATMS
 from flask import render_template, request, session, url_for, redirect,\
     Blueprint
 from .extensions import mongo, bcrypt
-from source import app
 main = Blueprint('main', __name__)
 
 
@@ -127,7 +126,3 @@ def show_posts():
 def logout():
     session.pop('username')
     return redirect('/')
-
-
-if __name__ == "__main__":
-    app.run()
