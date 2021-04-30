@@ -7,3 +7,4 @@ load_dotenv(dotenv_path)
 #pipenv install 'mongo[srv]' dnspython python-dotenv
 
 MONGO_URI = os.environ.get('MONGO_URI')
+MONGO_URI = "mongodb://localhost:27017/atms"

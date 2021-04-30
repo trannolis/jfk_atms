@@ -23,3 +23,6 @@ dev_env: FORCE
 
 docs: FORCE
 	python -m pydoc -b
+
+local: FORCE
+	source/local.sh
