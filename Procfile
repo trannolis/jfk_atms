@@ -1,1 +1,1 @@
-web: gunicorn "source.app:main"
+web: gunicorn "source:create_app()"
