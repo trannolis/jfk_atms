@@ -6,6 +6,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+gunicorn = "*"
 flask = "*"
 flask-pymongo = "*"
 python-dotenv = "*"
