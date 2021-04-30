@@ -1,3 +1,5 @@
+# Run "pipenv lock" every time you update the pipfile before pushing
+
 [[source]]
 url = "https://pypi.org/simple"
 verify_ssl = true
