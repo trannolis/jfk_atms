@@ -11,3 +11,6 @@ db.airplane.insertOne({'_id' : 'Plane0'});
 
 db.flight.insertOne({'_id' : 'watever', 'arrivalTime' : ISODate(), 'departureTime' : ISODate(), 'departureLocation' : 'nowhere',
   'arrivalLocation' : 'JFK', 'airplaneId' : 'Plane0'});
+
+db.flight.insertOne({'_id' : 'AI101', 'arrivalTime' : ISODate(), 'departureTime' : ISODate(), 'departureLocation' : 'London Heathrow',
+  'arrivalLocation' : 'JFK', 'airplaneId' : 'Plane123'});
