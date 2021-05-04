@@ -1,0 +1,15 @@
+<html>
+<head>
+</head>
+<body>
+<form action="/register" method="POST">
+	<p>Please select the role of the new user:</p>
+	<input type="radio" id="atc" name="role" value="atc">
+	<label for="atc">ATC</label><br>
+	<input type="radio" id="pilot" name="role" value="pilot">
+	<label for="pilot">Pilot</label><br>
+    {% if error %}
+		<p class="error"><strong>Error:</strong> {{error}}</p>
+	{% endif %}
+</form>
+</body>

@@ -11,5 +11,5 @@ def create_app(config_object='source.settings'):
     bcrypt.init_app(app)
 
     app.register_blueprint(main)
-
+    
     return app
