@@ -12,7 +12,7 @@ Hriditaa Dekate, Faizan Hussain, Neh Kundalia, Nick Tran
 
 To use the repository, use `git clone https://github.com/trannolis/jfk_atms.git` in the terminal to recieve the contents of the file.
 
-Once the contents of the repository are stored onto your computer, you first need to install the relevant libraries flask, which is done through `pip install -r $(REQ_DIR)/requirements-dev.txt`
+Once the contents of the repository are stored onto your computer, you first need to install the relevant libraries flask, which is done through `pip install --dev`
 
 Afterwards, it is suggested to run `python3 atm_classes.py`. When a working version of the website for jfk_atm is available, it would be suggested to navigate to `localhost:8000`
 
