@@ -135,7 +135,7 @@ dmypy.json
 .replit
 
 # Pycharm
-.idea
+.idea/
 
 # gunicorn
 run.gunicorn.sh 
