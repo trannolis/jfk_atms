@@ -9,26 +9,28 @@
 	}
 </style>
 
-Here are posts by {{poster_name}}:
+List of flights:
 
 <table>
-	<th>Time</th>
-	<th>Post</th>
+	<th>Flight Number</th>
+	<th>Departure Destination</th>
+	<th>Arrival Destination</th>
+	<th>Terminal</th>
+	<th>Gate</th>
 
 {% for line in posts %}
 	<tr>
-		<td>{{line.ts}}</td>
-		<td>{{line.blog_post}}</td>
+		<td>{{line.airplaneId}}</td>
+		<td>{{line.departureLocation}}</td>
+		<td>{{line.arrivalLocation}}</td>
+		<td>{{line.origin}}</td>
 	</tr>
 {% endfor %}
 </table>
 
 <br>
 <br>
-<a href="/select_blogger">Select another blogger</a>
-<br>
-<br>
-<a href="/home">Post a message</a>
+<a href="/">Go back</a>
 <br>
 <br>
 <a href="/logout">Logout</a>
