@@ -1,8 +1,15 @@
 <html>
 <head>
 </head>
-<body>
+<body style="text-align:center">
 <form action="/loginAuth" method="POST">
+	<p>Please select your role:</p>
+	<input type="radio" id="admin" name="role" value="admin">
+	<label for="admin">Admin</label><br>
+	<input type="radio" id="atc" name="role" value="atc">
+	<label for="atc">ATC</label><br>
+	<input type="radio" id="pilot" name="role" value="pilot">
+	<label for="pilot">Pilot</label><br>
 	<input type="text" name = "username" placeholder="username" required/> </br>
 	<input type="password" name = "password" placeholder="password" required/></br>
 	<input type="submit" value = Login />

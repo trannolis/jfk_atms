@@ -16,10 +16,13 @@ unit: FORCE
 	python -m unittest $(TEST_DIR)/test_endpoints.py 
 
 lint: FORCE
-	cd $(SRC_DIR); $(LINTER) main.py; $(LINTER) test_main.py;
+	cd $(SRC_DIR); $(LINTER) *.py
 
 dev_env: FORCE
 	pipenv install --dev
 
 docs: FORCE
-	python -m pydoc -b
+	cd source; make docs
+
+local: FORCE
+	source/local.sh
