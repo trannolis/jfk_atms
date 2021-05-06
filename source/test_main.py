@@ -5,7 +5,7 @@ import app
 class TestEndpoints(unittest.TestCase):
     def setUp(self):
         self.app = app.app.test_client()
-        
+
     def test_register_atc(self):
         """
         Tests registering Air Traffic Controllers
