@@ -25,4 +25,4 @@ docs: FORCE
 	cd source; make docs
 
 local: FORCE
-	source/local.sh
+	python atms.py
