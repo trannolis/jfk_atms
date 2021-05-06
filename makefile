@@ -22,7 +22,7 @@ dev_env: FORCE
 	pipenv install --dev
 
 docs: FORCE
-	python -m pydoc -b
+	cd source; make docs
 
 local: FORCE
 	source/local.sh
