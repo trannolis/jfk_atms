@@ -1,12 +1,12 @@
 class Air_Traffic_Controller:
     """" This class represents the person who will be handling the flight
     schedule management and assignment """
-    def __init___(self, name, PhoneNumber, Email, Password, Airport):
+    def __init___(self, name, phoneNumber, email, password, airport):
         self.name = name
-        self.phoneNumber = PhoneNumber
-        self.email = Email
-        self.password = Password  # this needs to be hidden
-        self.airport = Airport
+        self.phoneNumber = phoneNumber
+        self.email = email
+        self.password = password  # this needs to be hidden
+        self.airport = airport
 
     def getflights_api(self):
         """For the air traffic controller to be able to see all the flights"""
@@ -28,14 +28,14 @@ class Air_Traffic_Controller:
 class Pilot:
     """This class represents the pilots who will be communicating with the
     Air Traffic Controller"""
-    def __init___(self, Name, PhoneNumber, Email, Password, CanLand,
-                  CanTakeOff):
-        self.Name = Name
-        self.PhoneNumber = PhoneNumber
-        self.Email = Email
-        self.Password = Password
+    def __init___(self, name, phoneNumber, email, password, canLand,
+                  canTakeOff):
+        self.name = name
+        self.phoneNumber = phoneNumber
+        self.email = email
+        self.password = password
         self.canLand = False
-        self.CanTakeOff = False
+        self.canTakeOff = False
 
     def updateFlightInfo(flightid, location, time):
         """For the pilot to be able to make any changes mid-flight if
@@ -100,10 +100,10 @@ class Flight:
 
 class Location:
     """This represents the individual gates at the airport"""
-    def __init___(self, AiportCode, Gate, IsVacant):
-        self.AirportCode = AiportCode
-        self.Gate = Gate
-        self.IsVacant = False
+    def __init___(self, aiportCode, gate, isVacant):
+        self.airportCode = aiportCode
+        self.gate = gate
+        self.isVacant = False
 
     def updateVacancyStatus(self, vacancyStatus):
         """to change the status gate availability"""
@@ -111,16 +111,16 @@ class Location:
 
     def getVacancyStatus(self):
         """to get current status of the gates of the arrival gate"""
-        return self.IsVacant
+        return self.isVacant
 
 
 class Airport:
     """This represents the airport at which the planes will be
     landing and taking off"""
-    def __init___(self, flights, AirTrafficControllers, runway1=False,
+    def __init___(self, flights, airTrafficControllers, runway1=False,
                   runway2=False, runway3=False, runway4=False):
         self.flights = flights
-        self.AirTrafficControllers = AirTrafficControllers
+        self.airTrafficControllers = airTrafficControllers
 
     def addFlight(self, flightid):
         """to add new flight record at the airport"""
