@@ -12,7 +12,7 @@ Hriditaa Dekate, Faizan Hussain, Neh Kundalia, Nick Tran
 
 To use the repository, use `git clone https://github.com/trannolis/jfk_atms.git` in the terminal to recieve the contents of the file.
 
-Once the contents of the repository are stored onto your computer, you first need to install the relevant libraries flask, which is done through `pip install -r $(REQ_DIR)/requirements-dev.txt`
+Once the contents of the repository are stored onto your computer, you first need to install the relevant libraries flask, which is done through `pipenv install --dev`
 
 Afterwards, it is suggested to run the command `make local`. This should open up a local version of the website on `localhost:5000`
 
@@ -33,6 +33,10 @@ Ensures that the terminal is situated with the correct files to have the appropr
 ### docs
 
 Ensures that the terminal starts in the correct directory to run relevant functions of the ATC
+
+###
+
+Runs the flask application on localhost:5000
 
 # Requirements
 
