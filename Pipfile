@@ -13,11 +13,13 @@ python-dotenv = "*"
 flask-bcrypt = "*"
 mongo = {extras = ["srv"], version = "*"}
 dnspython = "*"
+pytest-html = {editable = true,path = "."}
 
 [dev-packages]
 flake8 = "*"
 nose = "*"
 coverage = "*"
+pytest-rerunfailures = "*"
 
 [requires]
 python_version = ">3.8"
