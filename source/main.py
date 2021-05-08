@@ -162,7 +162,6 @@ def pilotHome():
     pilot = mongo.db['pilot'].find_one_or_404({'username': username}) #gets pilot row
     first_name = pilot['firstName']
     airplaneID = pilot['airplaneID']
-    print(airplaneID)
     try:
         flight = mongo.db['flight'].find_one_or_404({'airplaneId': airplaneID})
         arrivalTime = flight['arrivalTime']
@@ -170,16 +169,20 @@ def pilotHome():
         return render_template('pilot_landing.html', name = first_name, airplaneID = airplaneID, arrivalTime = arrivalTime, arrivalLocation = arrivalLocation)
     except:
         return render_template('noFlight.html')
-    """
+
+@main.route('/atcHome')
+def atcHome():
+    """This method returns all flights"""
+    username = session['username']
+    atcName = mongo.db['atc'].find_one_or_404({'username': username})
+    firstName = atcName['firstName']
     try:
-        airplaneID = pilot['airplaneID']
-        flight = mongo.db['flight'].find_one_or_404({'airplaneID': airplaneID})
-        arrivalTime = flight['arrivalTime']
-        arrivalLocation = flight['arrivalLocation']
-        return render_template('pilot_landing.html', name = first_name, airplaneID = airplaneID, arrivalTime = arrivalTime, arrivalLocation = arrivalLocation)
+        flights = mongo.db['flights'].find()
+        flightIDs = flights['airplaneID']
+        arrivalTimes = flights['arrivalTimes']
+        return render_template('atc_landing.html', firstName = firstName, flights = flights)
     except:
-        return render_template('noFlight.html')
-    """
+        return render_template('atc_landing.html', firstName = firstName)
 
 @main.route('/post', methods=['GET', 'POST'])
 def post():
