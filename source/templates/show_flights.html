@@ -9,21 +9,29 @@
 	}
 </style>
 
-Here are posts by {{poster_name}}:
+Here's a list of all scheduled flights:
 
 <table>
-	<th>Time</th>
-	<th>Post</th>
+	<th>ID</th>
+	<th>Gate</th>
+	<th>Arrival Time</th>
+	<th>Departure Time</th>
+	<th>Arrival Location</th>
+	<th>Departure Location</th>
 
-{% for line in posts %}
+{% for flight in flights %}
 	<tr>
-		<td>{{line.ts}}</td>
-		<td>{{line.blog_post}}</td>
+		<td>{{flight['airplaneId']}}</td>
+		<td>{{flight['gate']}}</td>
+		<td>{{flight['arrivalTime']}}</td>
+		<td>{{flight['DepartureTime']}}</td>
+		<td>{{flight['arrivalLocation']}}</td>
+		<td>{{flight['departureLocation']}}</td>
 	</tr>
 {% endfor %}
 </table>
 
-<br>
+<!-- <br>
 <br>
 <a href="/select_blogger">Select another blogger</a>
 <br>
@@ -31,7 +39,7 @@ Here are posts by {{poster_name}}:
 <a href="/home">Post a message</a>
 <br>
 <br>
-<a href="/logout">Logout</a>
+<a href="/logout">Logout</a> -->
 
 </body>
 

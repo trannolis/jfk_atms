@@ -128,8 +128,14 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-#VS Code
+# VS Code
 .vscode/
 
-#Replit
+# Replit
 .replit
+
+# Pycharm
+.idea/
+
+# gunicorn
+run.gunicorn.sh 

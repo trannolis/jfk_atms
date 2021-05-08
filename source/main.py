@@ -7,36 +7,40 @@ from flask import render_template, request, session, url_for, redirect,\
 from .extensions import mongo, bcrypt
 import random
 from datetime import datetime
+# from source import socketio
 main = Blueprint('main', __name__)
+
 
 # Define a route to hello function
 @main.route('/')
 def hello():
     return render_template('landing.html')
 
+
+# Define a route to login function
 @main.route('/login')
 def login():
     return render_template('login.html')
+
 
 # Define route for registering admins
 @main.route('/registerAdmin')
 def registerAdmin():
     return render_template('registerAdmin.html')
 
-# Authenticates the login for users
+
 @main.route('/loginAuth', methods=['GET', 'POST'])
 def loginAuth():
+    '''Authenticates the login for users'''
     # grabs information from the forms
     username_input = request.form['username']
     password_input = request.form['password']
     role = request.form['role']
-    # hash the password from the forum
 
     # get user's hashed password from the your_database
-    user = mongo.db[role].find_one_or_404({'username': username_input})
-    print(user['password'], password_input)
-    error = None
-    if(not error):
+    user = mongo.db[role].find_one({'username': username_input})
+    if user and bcrypt.check_password_hash(user['password'],
+                                           password_input):
         # creates a session for the the user
         # session is a built in
         session['username'] = username_input
@@ -46,6 +50,7 @@ def loginAuth():
         error = 'Invalid login or username'
         return render_template('login.html', error=error)
 
+
 @main.route('/register', methods=['GET', 'POST'])
 def register():
     role = request.form['role']
@@ -53,18 +58,20 @@ def register():
         return redirect(url_for('main.registerPilot'))
     return redirect(url_for('main.registerAtc'))
 
+
 @main.route('/registerPilot', methods=['GET', 'POST'])
 def registerPilot():
     return render_template('registerPilot.html')
+
 
 @main.route('/registerAtc', methods=['GET', 'POST'])
 def registerAtc():
     return render_template('registerAtc.html')
 
-# Authenticates the registration for new admins
+
 @main.route('/registerAdminAuth', methods=['GET', 'POST'])
 def registerAdminAuth():
-    # grabs information from the forms
+    '''Authenticates the registration for new admins'''
     username = request.form['username']
     password = request.form['password']
     first_name = request.form['first_name']
@@ -86,9 +93,11 @@ def registerAdminAuth():
         'phone_no': phone_no})
     return render_template('adminHome.html')
 
+
 # Authenticates the registration for new ATCs
 @main.route('/registerAtcAuth', methods=['GET', 'POST'])
 def registerAtcAuth():
+    '''Authenticates the registration for new ATCs'''
     # grabs information from the forms
     username = request.form['username']
     password = request.form['password']
@@ -115,7 +124,7 @@ def registerAtcAuth():
 # Authenticates the registration for new pilots
 @main.route('/registerPilotAuth', methods=['GET', 'POST'])
 def registerPilotAuth():
-    # grabs information from the forms
+    '''Authenticates the registration for new ATCs'''
     username = request.form['username']
     password = request.form['password']
     first_name = request.form['first_name']
@@ -128,7 +137,7 @@ def registerPilotAuth():
         error = "This user already exists"
         return render_template('registerPilot.html', error=error)
 
-    newAirplaneID = random.randint(0,1000)
+    newAirplaneID = random.randint(0, 1000)
 
     mongo.db.pilot.insert({
         'username': username,
@@ -139,36 +148,42 @@ def registerPilotAuth():
         'phone_no': phone_no,
         'airplaneID': newAirplaneID})
 
-    #make a flight to correspond with the pilot too - FAKE DATA GENERATION
+    # make a flight to correspond with the pilot too - FAKE DATA GENERATION
     mongo.db.flight.insert({
-        '_id' : newAirplaneID,
-        'arrivalTime' : datetime.now(),
-        'departureTime' : datetime.now(),
-        'departureLocation' : 'nowhere',
-        'arrivalLocation' : 'JFK',
-        'airplaneId' : newAirplaneID})
-    
+        '_id': newAirplaneID,
+        'arrivalTime': datetime.now(),
+        'departureTime': datetime.now(),
+        'departureLocation': 'nowhere',
+        'arrivalLocation': 'JFK',
+        'airplaneId': newAirplaneID})
+
     return render_template('adminHome.html')
+
 
 @main.route('/adminHome')
 def adminHome():
     user = session['username']
     return render_template('adminHome.html', username=user)
 
+
 @main.route('/pilotHome', methods=["GET"])
 def pilotHome():
-    """This method returns the pilot's flight information to the pilot landing page"""
-    username = session['username'] #gets pilot's username
-    pilot = mongo.db['pilot'].find_one_or_404({'username': username}) #gets pilot row
+    """This method returns the pilot's flight information to the
+    pilot landing page"""
+    username = session['username']
+    pilot = mongo.db['pilot'].find_one_or_404({'username': username})
     first_name = pilot['firstName']
-    airplaneID = pilot['airplaneID']
+    airplaneID = pilot['airplaneId']
     try:
         flight = mongo.db['flight'].find_one_or_404({'airplaneId': airplaneID})
         arrivalTime = flight['arrivalTime']
         arrivalLocation = flight['arrivalLocation']
-        return render_template('pilot_landing.html', name = first_name, airplaneID = airplaneID, arrivalTime = arrivalTime, arrivalLocation = arrivalLocation)
-    except:
+        return render_template('pilot_landing.html', name=first_name,
+                               airplaneID=airplaneID, arrivalTime=arrivalTime,
+                               arrivalLocation=arrivalLocation)
+    except Exception:
         return render_template('noFlight.html')
+
 
 @main.route('/atcHome')
 def atcHome():
@@ -178,26 +193,35 @@ def atcHome():
     firstName = atcName['firstName']
     try:
         flights = mongo.db['flights'].find()
-        flightIDs = flights['airplaneID']
-        arrivalTimes = flights['arrivalTimes']
-        return render_template('atc_landing.html', firstName = firstName, flights = flights)
-    except:
-        return render_template('atc_landing.html', firstName = firstName)
+        # flightIDs = flights['airplaneID']
+        # arrivalTimes = flights['arrivalTimes']
+        return render_template('atc_landing.html', firstName=firstName,
+                               flights=flights)
+    except Exception:
+        return render_template('atc_landing.html', firstName=firstName)
 
-@main.route('/post', methods=['GET', 'POST'])
-def post():
-    return redirect(url_for('home'))
 
-@main.route('/select_flight')
-def select_flight():
-    data = [1, 2, 3, 4, 5]
-    return render_template('select_blogger.html', user_list=data)
+@main.route('/getFlights', methods=['GET', 'POST'])
+def getFlights():
+    '''This method fetches and displays all flights from the database'''
+    flights = [flight for flight in mongo.db['flight'].find()]
+    return render_template('show_flights.html', flights=flights)
 
-@main.route('/show_posts', methods=["GET", "POST"])
-def show_flights():
-    poster = request.args['poster']
-    data = [1, 2, 3, 4, 5]
-    return render_template('show_flights.html', poster_name=poster, posts=data)
+
+# @main.route('/chatroom', methods=['GET', 'POST'])
+# def sessions():
+#     return render_template('chatroom.html')
+
+
+# def messageReceived(methods=['GET', 'POST']):
+#     print('message was received!!!')
+
+
+# @socketio.on('my event')
+# def handle_my_custom_event(json, methods=['GET', 'POST']):
+#     print('received my event: ' + str(json))
+#     socketio.emit('my response', json, callback=messageReceived)
+
 
 @main.route('/logout')
 def logout():

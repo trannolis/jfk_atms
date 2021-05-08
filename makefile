@@ -1,6 +1,6 @@
 LINTER = flake8
 SRC_DIR = source
-TEST_DIR = tests
+TEST_DIR = source
 
 FORCE:
 
@@ -13,16 +13,16 @@ github: FORCE
 tests: lint unit
 
 unit: FORCE
-	python -m unittest $(TEST_DIR)/test_endpoints.py 
+	python -m unittest $(TEST_DIR)/test_main.py 
 
 lint: FORCE
-	cd $(SRC_DIR); $(LINTER) main.py; $(LINTER) test_main.py;
+	cd $(SRC_DIR); $(LINTER) *.py
 
 dev_env: FORCE
 	pipenv install --dev
 
 docs: FORCE
-	python -m pydoc -b
+	cd source; make docs
 
 local: FORCE
-	source/local.sh
+	python atms.py
