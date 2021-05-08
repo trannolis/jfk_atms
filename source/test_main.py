@@ -1,10 +1,10 @@
-#import unittest
-#import create_app
+# import unittest
+# import create_app
 
 
-#class TestEndpoints(unittest.TestCase):
+# class TestEndpoints(unittest.TestCase):
 #    def setUp(self):
-        
+
 
 #    def test_register_atc(self):
 #        """
@@ -25,5 +25,5 @@
 #        self.assertIn(phone_number_elem, page_html)
 
 
-#if __name__ == "__main__":
+# if __name__ == "__main__":
 #    unittest.main()
