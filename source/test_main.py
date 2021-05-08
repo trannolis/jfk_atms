@@ -1,5 +1,7 @@
 import unittest
-import main
+import flask
+
+app = flask.Flask(__name__)
 
 
 class TestEndpoints(unittest.TestCase):
