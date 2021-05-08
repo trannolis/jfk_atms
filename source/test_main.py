@@ -1,12 +1,10 @@
 import unittest
-import flask
-
-app = flask.Flask(__name__)
+import create_app
 
 
 class TestEndpoints(unittest.TestCase):
     def setUp(self):
-        self.app = app.app.test_client()
+        self.app = create_app().test_client()
 
     def test_register_atc(self):
         """
