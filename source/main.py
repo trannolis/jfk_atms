@@ -185,17 +185,27 @@ def pilotHome():
         return render_template('noFlight.html')
 
 
+@main.route('/atcHome')
+def atcHome():
+    """This method returns all flights"""
+    username = session['username']
+    atcName = mongo.db['atc'].find_one_or_404({'username': username})
+    firstName = atcName['firstName']
+    try:
+        flights = mongo.db['flights'].find()
+        # flightIDs = flights['airplaneID']
+        # arrivalTimes = flights['arrivalTimes']
+        return render_template('atc_landing.html', firstName=firstName,
+                               flights=flights)
+    except Exception:
+        return render_template('atc_landing.html', firstName=firstName)
+
+
 @main.route('/getFlights', methods=['GET', 'POST'])
 def getFlights():
     '''This method fetches and displays all flights from the database'''
     flights = [flight for flight in mongo.db['flight'].find()]
     return render_template('show_flights.html', flights=flights)
-
-
-@main.route('/atcHome', methods=['GET', 'POST'])
-def atcHome():
-    user = session['username']
-    return render_template('atc_landing.html', username=user)
 
 
 # @main.route('/chatroom', methods=['GET', 'POST'])
