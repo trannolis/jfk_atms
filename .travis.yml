@@ -13,8 +13,9 @@ env:
 script:
     - make tests
 
-# deploy to heroku
-#deploy:
-#    - provider: heroku
-#      api_key: $HEROKU_API_KEY
-#      app: sd-game-api
+deploy:
+  provider: heroku
+  api_key:
+    secure: K7grFekWr5CbTSBMEFcRVwPZgQkOm1gWLxnOSrQqwZ+1XA5luttvHCa8Zr+b+aGiie7U3YKzB/TIBeiv6j0fOSkdAzidcxD9zJT2nB1Dc1aFbBz1DQIbXOFMgG8GE3yPgnmP27Oqkbv76hDZG2s/BzrJRAgksnQ8gJVg5meX1dtj1O1kr7Dkvamrf59gqGqOx1+mSMrHXyw5pUFkUxwsh6CZ+bMwfd7kk+/XhlpQzONlPwOJsjGv7/MlMSxYCJF3D2nNlCM5myFAGnvQllv/aA1iSFHHO3kjHXaKxOWYcRYT5v0/uBK5iailD8bc0O3V4oMYXk5oft/LNHSplQIV7IHqGNgjL5wdf2yIf+OIvhisCP+4+efguwL8ZTOpBAKOAtoY3ohFeaRtBuYDmRoVLFJPeqqKa1j68Hq7jfaXZUHAFzoeB80tk6HXsvhJjFiP34Rs7f94MOUdsrBoq9jO4WUUaYGV7xLHGGq5MHKjMPTsGaEpQZf2vDsETQp1SSKvauBkurvGrEgDAGLxNfcygTP//OFbsQPHX7zlDKcMsMfzrDqzfCRe+5HlZaY6xUn0amtTDsFfrAftr5bMCiy5Y0bbYXsjwXwXd5xxlxLyfLqkngpxsXLGVBDBhDyjnYgxct3HsajIEKzk8H9VPF0jTwb/+snnkDINA+d13Kw5GC8=
+  app: jfk-atms
+  on: main
