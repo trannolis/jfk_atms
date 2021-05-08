@@ -198,6 +198,16 @@ def atcHome():
     return render_template('atc_landing.html', username=user)
 
 
+@main.route('/deleteUser', methods=['GET', 'POST'])
+def deleteUser():
+    return render_template('delete_user.html')
+
+
+@main.route('/logout')
+def logout():
+    session.pop('username')
+    return redirect('/')
+
 # @main.route('/chatroom', methods=['GET', 'POST'])
 # def sessions():
 #     return render_template('chatroom.html')
@@ -211,9 +221,3 @@ def atcHome():
 # def handle_my_custom_event(json, methods=['GET', 'POST']):
 #     print('received my event: ' + str(json))
 #     socketio.emit('my response', json, callback=messageReceived)
-
-
-@main.route('/logout')
-def logout():
-    session.pop('username')
-    return redirect('/')
