@@ -6,6 +6,7 @@ from flask import render_template, request, session, url_for, redirect,\
     Blueprint
 from .extensions import mongo, bcrypt
 import random
+from math import dist
 from datetime import datetime
 main = Blueprint('main', __name__)
 
@@ -38,9 +39,7 @@ def loginAuth():
 
     # get user's hashed password from the your_database
     user = mongo.db[role].find_one_or_404({'username': username_input})
-    print(user['password'], password_input)
-    error = None
-    if(not error):
+    if(bcrypt.check_password_hash(user['password'], password_input)):
         # creates a session for the the user
         # session is a built in
         session['username'] = username_input
@@ -230,9 +229,7 @@ def removeUser():
     """removes the user from the either atc, admin, or atc database"""
     role = session.get('role', None)  # gets role of the person being deleted
     delete_user = request.form.get('user')  # user to be deleted
-    print(delete_user)
     mongo.db[str(role)].remove({"username": str(delete_user)})
-    print("success")
     return render_template('successfulDeletion.html', user=delete_user)
 
 
@@ -252,9 +249,18 @@ def logout():
 
 def calculateGate(flightId):
     runway = mongo.db['runway'].find_one({'is_vacant': True})
+    runway = runway['_id'], runway['x_coord'], runway['y_coord']
     gates = [(gate['_id'], gate['x_coord'], gate['y_coord']) for gate in
              mongo.db['gate'].find({'is_vacant': True})]
-    print(runway, gates)
+    # gates1 = [(gate[0], ((gate[1]-runway[1])**2+(gate[2]-runway[2])**2)**0.5)
+    #           for gate in gates]
+    gates = [(gate[0], dist((gate[1], gate[2]), (runway[1], runway[2])))
+             for gate in gates]
+    selectGate = gates.sort(key=lambda dist: dist[1])[0][0]
+    mongo.db['runway'].update({'_id': runway[0]},
+                              {'$set': {'is_vacant': False}})
+    mongo.db['gate'].update({'_id': selectGate},
+                            {'$set': {'is_vacant': False}})
 
 # @main.route('/chatroom', methods=['GET', 'POST'])
 # def sessions():

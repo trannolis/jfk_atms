@@ -9,7 +9,7 @@ What Admin do you want to delete?
 <form action="/removeUser" method="POST">
 
     {% for user in user_list %}
-    <input type="radio" name="user" value={{user['username']}}> {{user['username']}}</input>
+    <input type="radio" name="user" value={{user['username']}} required> {{user['username']}}</input>
         <br>
     {% endfor %}
     
