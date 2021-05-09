@@ -244,11 +244,6 @@ def getFlights():
     return render_template('show_flights.html', flights=flights)
 
 
-@main.route('/deleteUser', methods=['GET', 'POST'])
-def deleteUser():
-    return render_template('delete_user.html')
-
-
 @main.route('/logout')
 def logout():
     session.pop('username')
