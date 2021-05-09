@@ -14,10 +14,10 @@ class TestEndpoints(unittest.TestCase):
         page_html = str(self.client.get('/registerAtc').data)
         username_elem = 'Username'
         password_elem = 'Password'
-        first_name_elem = 'FirstName'
-        last_name_elem = 'LastName'
+        first_name_elem = 'First Name'
+        last_name_elem = 'Last Name'
         email_elem = 'Email'
-        phone_number_elem = '1234567890'
+        phone_number_elem = 'Phone No.'
         self.assertIn(username_elem, page_html)
         self.assertIn(password_elem, page_html)
         self.assertIn(first_name_elem, page_html)
