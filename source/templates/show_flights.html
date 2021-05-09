@@ -12,34 +12,48 @@
 Here's a list of all scheduled flights:
 
 <table>
+	<th> Select </th>
 	<th>ID</th>
-	<th>Gate</th>
 	<th>Arrival Time</th>
 	<th>Departure Time</th>
+	<th>Departure Location/th>
 	<th>Arrival Location</th>
-	<th>Departure Location</th>
+	<th> Airplane ID</th>
+	<th> Gate Number </th>
 
+<form action="/showFlights" method="POST">
 {% for flight in flights %}
 	<tr>
+		<td> <input type="radio" id={{flight['_id']}} name="select" value={{flight['_id']}} required>
+			<label for="select"></label><br> </td>
+		<td>{{flight['_id']}}</td>
+		<td>{{flight['arrivalTime']}}</td>
+		<td>{{flight['departureTime']}}</td>
+		<td>{{flight['departureLocation']}}</td>
+		<td>{{flight['arrivalLocation']}}</td>
 		<td>{{flight['airplaneId']}}</td>
 		<td>{{flight['gate']}}</td>
-		<td>{{flight['arrivalTime']}}</td>
-		<td>{{flight['DepartureTime']}}</td>
-		<td>{{flight['arrivalLocation']}}</td>
-		<td>{{flight['departureLocation']}}</td>
 	</tr>
 {% endfor %}
 </table>
+<br>
 
-<!-- <br>
+<td> <input type="radio" id="gate" name="update" value="gate" required>
+	<label for="update">Update Gate</label><br> </td>
+<td> <input type="radio" id="runway" name="update" value="runway"required>
+	<label for="update">Update Runway </label><br> </td>
+
+<input type="submit" value = Continue />
+{% if error %}
+	<p class="error"><strong>Error:</strong> {{error}}</p>
+{% endif %}
 <br>
-<a href="/select_blogger">Select another blogger</a>
+</form>
+
 <br>
+<a href="/atcLanding">Back</a>
 <br>
-<a href="/home">Post a message</a>
-<br>
-<br>
-<a href="/logout">Logout</a> -->
+<a href="/logout">Logout</a> 
 
 </body>
 
