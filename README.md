@@ -72,7 +72,6 @@ Runs the flask application on localhost:5000
 * Users can find the relevant information of a particular aircraft, including aircraft location and flight details
 * Air Traffic Controllers can change the gate that an airplane to scheduled to arrive at
 * Air Traffic Controllers can chnage the runway that an airplane is scheduled to arrive/or depart at
-* Identity Verfication is required for confirming a change to the database
 * Safety Verification by the system if required for confirming a change to the database
 * Airplanes automatically relay their location to the database
 * Pilots can confirm that they are on the runway or gate when they have reached said location

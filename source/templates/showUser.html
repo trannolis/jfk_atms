@@ -1,0 +1,23 @@
+<html>
+<head>
+</head>
+<body style="text-align:center">
+
+<form action="/selectUser" method="POST">
+	<p>Please select the role of the user you want to delete</p>
+	<input type="radio" id="admin" name="role" value="admin" required>
+	<label for="admin">Admin</label><br>
+	<input type="radio" id="atc" name="role" value="atc">
+	<label for="atc">ATC</label><br>
+	<input type="radio" id="pilot" name="role" value="pilot">
+	<label for="pilot">Pilot</label><br>
+	<input type="submit" value = Continue />
+	{% if error %}
+		<p class="error"><strong>Error:</strong> {{error}}</p>
+	{% endif %}
+</form>
+
+<a href="/adminHome">Go back</a>
+
+</body>
+</html>

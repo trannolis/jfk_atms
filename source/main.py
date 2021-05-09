@@ -7,7 +7,6 @@ from flask import render_template, request, session, url_for, redirect,\
 from .extensions import mongo, bcrypt
 import random
 from datetime import datetime
-# from source import socketio
 main = Blueprint('main', __name__)
 
 
@@ -17,7 +16,6 @@ def hello():
     return render_template('landing.html')
 
 
-# Define a route to login function
 @main.route('/login')
 def login():
     return render_template('login.html')
@@ -29,18 +27,20 @@ def registerAdmin():
     return render_template('registerAdmin.html')
 
 
+# Authenticates the login for users
 @main.route('/loginAuth', methods=['GET', 'POST'])
 def loginAuth():
-    '''Authenticates the login for users'''
     # grabs information from the forms
     username_input = request.form['username']
     password_input = request.form['password']
     role = request.form['role']
+    # hash the password from the forum
 
     # get user's hashed password from the your_database
-    user = mongo.db[role].find_one({'username': username_input})
-    if user and bcrypt.check_password_hash(user['password'],
-                                           password_input):
+    user = mongo.db[role].find_one_or_404({'username': username_input})
+    print(user['password'], password_input)
+    error = None
+    if(not error):
         # creates a session for the the user
         # session is a built in
         session['username'] = username_input
@@ -69,9 +69,10 @@ def registerAtc():
     return render_template('registerAtc.html')
 
 
+# Authenticates the registration for new admins
 @main.route('/registerAdminAuth', methods=['GET', 'POST'])
 def registerAdminAuth():
-    '''Authenticates the registration for new admins'''
+    # grabs information from the forms
     username = request.form['username']
     password = request.form['password']
     first_name = request.form['first_name']
@@ -97,7 +98,6 @@ def registerAdminAuth():
 # Authenticates the registration for new ATCs
 @main.route('/registerAtcAuth', methods=['GET', 'POST'])
 def registerAtcAuth():
-    '''Authenticates the registration for new ATCs'''
     # grabs information from the forms
     username = request.form['username']
     password = request.form['password']
@@ -124,7 +124,7 @@ def registerAtcAuth():
 # Authenticates the registration for new pilots
 @main.route('/registerPilotAuth', methods=['GET', 'POST'])
 def registerPilotAuth():
-    '''Authenticates the registration for new ATCs'''
+    # grabs information from the forms
     username = request.form['username']
     password = request.form['password']
     first_name = request.form['first_name']
@@ -156,7 +156,6 @@ def registerPilotAuth():
         'departureLocation': 'nowhere',
         'arrivalLocation': 'JFK',
         'airplaneId': newAirplaneID})
-
     return render_template('adminHome.html')
 
 
@@ -168,12 +167,12 @@ def adminHome():
 
 @main.route('/pilotHome', methods=["GET"])
 def pilotHome():
-    """This method returns the pilot's flight information to the
-    pilot landing page"""
-    username = session['username']
+    """This method returns the pilot's flight information to the pilot landing
+    page"""
+    username = session['username']  # gets pilot's username
     pilot = mongo.db['pilot'].find_one_or_404({'username': username})
     first_name = pilot['firstName']
-    airplaneID = pilot['airplaneId']
+    airplaneID = pilot['airplaneID']
     try:
         flight = mongo.db['flight'].find_one_or_404({'airplaneId': airplaneID})
         arrivalTime = flight['arrivalTime']
@@ -201,17 +200,48 @@ def atcHome():
         return render_template('atc_landing.html', firstName=firstName)
 
 
+@main.route('/showUser', methods=['GET', 'POST'])
+def showUser():
+    return render_template('showUser.html')
+
+
+@main.route('/selectUser', methods=['GET', 'POST'])
+def selectUser():
+    role = request.form.get("role")
+    session['role'] = role
+    if role == 'atc':
+        atcs = mongo.db['atc'].find({}, {'_id': 0, 'username': 1})
+        atcs_arr = [x for x in atcs]
+        return render_template('deleteATC.html', user_list=atcs_arr, role=role)
+    elif role == 'pilot':
+        pilots = mongo.db['pilot'].find({}, {'_id': 0, 'username': 1})
+        pilot_arr = [x for x in pilots]
+        return render_template('deletePilot.html', user_list=pilot_arr,
+                               role=role)
+    else:
+        admins = mongo.db['admin'].find({}, {'_id': 0, 'username': 1})
+        admins_arr = [x for x in admins]
+        return render_template('deleteAdmin.html', user_list=admins_arr,
+                               role=role)
+
+
+@main.route('/removeUser', methods=['GET', 'POST'])
+def removeUser():
+    """removes the user from the either atc, admin, or atc database"""
+    role = session.get('role', None)  # gets role of the person being deleted
+    delete_user = request.form.get('user')  # user to be deleted
+    print(delete_user)
+    mongo.db[str(role)].remove({"username": str(delete_user)})
+    print("success")
+    return render_template('successfulDeletion.html', user=delete_user)
+
+
 @main.route('/getFlights', methods=['GET', 'POST'])
 def getFlights():
     '''This method fetches and displays all flights from the database'''
     flights = [flight for flight in mongo.db['flight'].find()]
     calculateGate(1)
     return render_template('show_flights.html', flights=flights)
-
-
-@main.route('/deleteUser', methods=['GET', 'POST'])
-def deleteUser():
-    return render_template('delete_user.html')
 
 
 @main.route('/logout')
@@ -239,19 +269,3 @@ def calculateGate(flightId):
 # def handle_my_custom_event(json, methods=['GET', 'POST']):
 #     print('received my event: ' + str(json))
 #     socketio.emit('my response', json, callback=messageReceived)
-
-# for i in range(1, 139):
-    #     mongo.db['gate'].insert({
-    #         '_id': i,
-    #         'x_coord': i*100,
-    #         'y_coord': i*100,
-    #         'is_vacant': bool(random.randint(0, 1)),
-    #         'in_service': True,
-    #         'terminal': i % 6 + 1})
-
-    # for i in range(1, 5):
-    #     mongo.db['runway'].insert({
-    #         '_id': i,
-    #         'x_coord': i*random.randint(100, 150),
-    #         'y_coord': i*random.randint(100, 150),
-    #         'is_vacant': bool(i % 2)})
