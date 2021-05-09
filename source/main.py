@@ -205,7 +205,7 @@ def atcHome():
 def getFlights():
     '''This method fetches and displays all flights from the database'''
     flights = [flight for flight in mongo.db['flight'].find()]
-
+    calculateGate(1)
     return render_template('show_flights.html', flights=flights)
 
 
@@ -218,6 +218,13 @@ def deleteUser():
 def logout():
     session.pop('username')
     return redirect('/')
+
+
+def calculateGate(flightId):
+    runway = mongo.db['runway'].find_one({'is_vacant': True})
+    gates = [(gate['_id'], gate['x_coord'], gate['y_coord']) for gate in
+             mongo.db['gate'].find({'is_vacant': True})]
+    print(runway, gates)
 
 # @main.route('/chatroom', methods=['GET', 'POST'])
 # def sessions():
@@ -236,7 +243,7 @@ def logout():
 # for i in range(1, 139):
     #     mongo.db['gate'].insert({
     #         '_id': i,
-    #         'X_coord': i*100,
+    #         'x_coord': i*100,
     #         'y_coord': i*100,
     #         'is_vacant': bool(random.randint(0, 1)),
     #         'in_service': True,
