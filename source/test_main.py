@@ -7,6 +7,16 @@ class TestEndpoints(unittest.TestCase):
         self.app = create_app('source.settings', True)
         self.client = self.app.test_client()
 
+    def test_landing(self):
+        """
+        Tests the "Landing" endpoint for admins
+        """
+        page_html = str(self.client.get('/').data)
+        login_elem = 'Login'
+        reg_admin_elem = 'Register a new admin'
+        self.assertIn(login_elem, page_html)
+        self.assertIn(reg_admin_elem, page_html)
+
     def test_register_admin(self):
         """
         Tests registering Admins
@@ -45,7 +55,7 @@ class TestEndpoints(unittest.TestCase):
 
     def test_register_pilot(self):
         """
-        Tests registering Air Traffic Controllers
+        Tests registering Pilots
         """
         page_html = str(self.client.get('/registerPilot').data)
         username_elem = 'Username'
