@@ -1,4 +1,0 @@
-Dev_env has not yet been deployed but the plans are as follows;
-•	Development Environment
-We will be using Heroku to host our platform and run the application. MongoDB as our database manager. This is the backend implementation environment. flask will also be used. 
-Python is the primary language being used. Necessary libraries (pandas, numpy) and directories will be used.
