@@ -82,7 +82,7 @@ def registerAdminAuth():
 
     if mongo.db.admin.find_one({'username': username}):
         error = "This user already exists"
-        return render_template('register.html', error=error)
+        return render_template('registerAdmin.html', error=error)
 
     mongo.db.admin.insert({
         'username': username,
@@ -205,6 +205,7 @@ def atcHome():
 def getFlights():
     '''This method fetches and displays all flights from the database'''
     flights = [flight for flight in mongo.db['flight'].find()]
+
     return render_template('show_flights.html', flights=flights)
 
 
@@ -231,3 +232,19 @@ def logout():
 # def handle_my_custom_event(json, methods=['GET', 'POST']):
 #     print('received my event: ' + str(json))
 #     socketio.emit('my response', json, callback=messageReceived)
+
+# for i in range(1, 139):
+    #     mongo.db['gate'].insert({
+    #         '_id': i,
+    #         'X_coord': i*100,
+    #         'y_coord': i*100,
+    #         'is_vacant': bool(random.randint(0, 1)),
+    #         'in_service': True,
+    #         'terminal': i % 6 + 1})
+
+    # for i in range(1, 5):
+    #     mongo.db['runway'].insert({
+    #         '_id': i,
+    #         'x_coord': i*random.randint(100, 150),
+    #         'y_coord': i*random.randint(100, 150),
+    #         'is_vacant': bool(i % 2)})
