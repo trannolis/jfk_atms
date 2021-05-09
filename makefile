@@ -1,6 +1,7 @@
 LINTER = flake8
 SRC_DIR = source
 TEST_DIR = source
+NOSE_FLAGS = --with-coverage --verbose --exe --cover-package=.
 
 FORCE:
 
@@ -14,6 +15,7 @@ tests: lint unit
 
 unit: FORCE
 	python -m unittest $(TEST_DIR)/test_main.py
+	python3 -m "nose" ${NOSE_FLAGS}
 
 lint: FORCE
 	cd $(SRC_DIR); $(LINTER) *.py
