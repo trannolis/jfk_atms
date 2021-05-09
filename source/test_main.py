@@ -7,7 +7,7 @@ class TestEndpoints(unittest.TestCase):
         self.app = create_app('source.settings', True)
         self.client = self.app.test_client()
 
-    def test_register_atc(self):
+    def test_register_admin(self):
         """
         Tests registering Admins
         """
