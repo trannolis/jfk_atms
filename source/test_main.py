@@ -11,7 +11,7 @@ class TestEndpoints(unittest.TestCase):
         """
         Tests registering Air Traffic Controllers
         """
-        page_html = str(self.app.get('/registerAtc').data)
+        page_html = str(self.client.get('/registerAtc').data)
         username_elem = 'Username'
         password_elem = 'Password'
         first_name_elem = 'FirstName'
