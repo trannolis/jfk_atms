@@ -154,7 +154,9 @@ def registerPilotAuth():
         'departureTime': datetime.now(),
         'departureLocation': 'nowhere',
         'arrivalLocation': 'JFK',
-        'airplaneId': newAirplaneID})
+        'airplaneID': newAirplaneID,
+        'gate': -1,
+        'runway': -1})
     return render_template('adminHome.html')
 
 
@@ -173,7 +175,7 @@ def pilotHome():
     first_name = pilot['firstName']
     airplaneID = pilot['airplaneID']
     try:
-        flight = mongo.db['flight'].find_one_or_404({'airplaneId': airplaneID})
+        flight = mongo.db['flight'].find_one_or_404({'airplaneID': airplaneID})
         arrivalTime = flight['arrivalTime']
         arrivalLocation = flight['arrivalLocation']
         return render_template('pilot_landing.html', name=first_name,
@@ -249,18 +251,26 @@ def logout():
 
 def calculateGate(flightId):
     runway = mongo.db['runway'].find_one({'is_vacant': True})
-    runway = runway['_id'], runway['x_coord'], runway['y_coord']
-    gates = [(gate['_id'], gate['x_coord'], gate['y_coord']) for gate in
-             mongo.db['gate'].find({'is_vacant': True})]
-    # gates1 = [(gate[0], ((gate[1]-runway[1])**2+(gate[2]-runway[2])**2)**0.5)
-    #           for gate in gates]
-    gates = [(gate[0], dist((gate[1], gate[2]), (runway[1], runway[2])))
-             for gate in gates]
-    selectGate = gates.sort(key=lambda dist: dist[1])[0][0]
-    mongo.db['runway'].update({'_id': runway[0]},
-                              {'$set': {'is_vacant': False}})
-    mongo.db['gate'].update({'_id': selectGate},
-                            {'$set': {'is_vacant': False}})
+    if not runway:
+        mongo.db['queue'].insert({'_id': flightId,
+                                 'waiting_for': 'runway'})
+    else:
+        runway = runway['_id'], runway['x_coord'], runway['y_coord']
+        gates = [(gate['_id'], gate['x_coord'], gate['y_coord']) for gate in
+                 mongo.db['gate'].find({'is_vacant': True})]
+        if not len(gates):
+            mongo.db['queue'].insert({'_id': flightId,
+                                     'waiting_for': 'gate'})
+        else:
+            gates = [(gate[0],
+                     dist((gate[1], gate[2]),
+                     (runway[1], runway[2])))
+                     for gate in gates]
+            gates.sort(key=lambda dist: dist[1])
+            mongo.db['runway'].update({'_id': runway[0]},
+                                      {'$set': {'is_vacant': False}})
+            mongo.db['gate'].update({'_id': gates[0][0]},
+                                    {'$set': {'is_vacant': False}})
 
 # @main.route('/chatroom', methods=['GET', 'POST'])
 # def sessions():
