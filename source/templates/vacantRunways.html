@@ -1,0 +1,50 @@
+<html>
+<head>
+</head>
+<body>
+
+<style type="text/css">
+	table, th, td{
+		border: 1px solid black;
+	}
+</style>
+
+Here are all available runways
+
+<form action="/changeRunway" method="POST">
+<table>
+	<th> Select </th>
+	<th>ID</th>
+	<th>X_coord</th>
+	<th>Y_coord </th>
+	<th>Is vacant/th>
+
+{% for runway in runways %}
+	<tr>
+		<td> <input type="radio" id={{runway[id]}} name="select" value={{runway[id]}} required>
+			<label for="select"></label><br> </td>
+		<td>{{runway['_id']}}</td>
+		<td>{{runway['x_coord']}}</td>
+		<td>{{runway['y_coord']}}</td>
+		<td>{{runway['is_vacant']}}</td>
+	</tr>
+{% endfor %}
+</table>
+<br>
+<input type="submit" value = Continue />
+{% if error %}
+	<p class="error"><strong>Error:</strong> {{error}}</p>
+{% endif %}
+</form> 
+
+<br>
+
+<br>
+<a href="/getFlights">Back</a>
+<br>
+<a href="/logout">Logout</a> 
+
+</body>
+
+
+</html>
