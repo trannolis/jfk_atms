@@ -1,0 +1,22 @@
+<html>
+<head>
+</head>
+<body style="text-align:center">
+
+What ATC do you want to delete?
+<br>
+<form action="/removeUser" method="POST">
+
+    {% for user in user_list %}
+    <input type="radio" name="user" value={{user['username']}}> {{user['username']}}</input>
+        <br>
+    {% endfor %}
+    
+    <input type="submit" value="Delete User">
+    </form>
+    
+    <a href="/showUser">Home</a>
+    <a href="/logout">Logout</a>
+    
+    </body>
+    </html>
