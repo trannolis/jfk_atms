@@ -224,11 +224,11 @@ def select_flight():
     data = [1, 2, 3, 4, 5]
     return render_template('select_blogger.html', user_list=data)
 
-@main.route('/show_posts', methods=["GET", "POST"])
-def show_flights():
-    poster = request.args['poster']
-    data = [1, 2, 3, 4, 5]
-    return render_template('show_flights.html', poster_name=poster, posts=data)
+@main.route('/showFlights', methods=["GET", "POST"])
+def showFlights():
+    flights = mongo.db['flight'].find()
+    flights_arr = [flight for flight in flights]
+    return render_template('show_flights.html', flights = flights_arr)
 
 @main.route('/logout')
 def logout():
