@@ -260,9 +260,6 @@ def vacantGates():
     gate_changed = session.get('select', None)
     availableGates = mongo.db['gate'].find({'is_vacant': {'$eq': True}})
     gates_arr = [gate for gate in availableGates]
-    print(len(gates_arr))
-    #ongo.db['flight'].updateOne({'_id': flight_changed}, {'$set' : {'gate': new_gateID}})
-    #mongo.db['gate'].updateOne({'_id': new_gateID}, {'$set' : {'is_vacant': False}})
     return render_template('vacantGates.html', gates = gates_arr)
 
 @main.route('/vacantRunways', methods = ["GET", "POST"])
@@ -279,10 +276,12 @@ def vacantRunways():
 def changeGate():
     """ATC can change Gate number for a flight"""
     new_gateID = request.form.get("select")
-    print(new_gateID)
     flight_id = session.get('select')
-    mongo.db['flight'].update_one({'_id': flight_id}, {'$set': {'gate': new_gateID}})
-    mongo.db['gate'].update_one({'_id': new_gateID}, {'$set' : {'is_vacant': False}})
+    old_flight = mongo.db['flight'].find_one({'_id': int(flight_id)})
+    old_gate = old_flight['gate']
+    mongo.db['flight'].update_one({'_id': int(flight_id)}, {'$set': {'gate': int(new_gateID)}})
+    mongo.db['gate'].update_one({'_id': int(new_gateID)}, {'$set' : {'is_vacant': False}})
+    mongo.db['gate'].update_one({'_id': int(old_gate)}, {'$set' : {'is_vacant': True}})
     return redirect('/getFlights')
 
 @main.route('/changeRunway', methods = ["GET", "POST"])
@@ -290,8 +289,11 @@ def changeRunway():
     """ATC can change Runway number for a flight"""
     runwayID = request.form.get("select")
     flight_id = session.get('select')
-    #mongo.db['flight'].update_one({'_id': flight_id}, {'$set' : {'runway': runwayID}})
-    mongo.db['runway'].update_one({'_id': runwayID}, {'$set' : {'is_vacant': False}})
+    old_flight = mongo.db['flight'].find_one({'_id': int(flight_id)})
+    old_runway = old_flight['runway']
+    mongo.db['flight'].update_one({'_id': int(flight_id)}, {'$set' : {'runway': int(runwayID)}})
+    mongo.db['runway'].update_one({'_id': int(runwayID)}, {'$set' : {'is_vacant': False}})
+    mongo.db['runway'].update_one({'_id': int(old_runway)}, {'$set' : {'is_vacant': True}})
     return redirect('/getFlights')
 
 @main.route('/logout')

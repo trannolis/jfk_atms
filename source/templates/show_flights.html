@@ -1,7 +1,7 @@
 <html>
 <head>
 </head>
-<body>
+<body style="text-align:center">
 
 <style type="text/css">
 	table, th, td{
@@ -11,7 +11,7 @@
 
 Here's a list of all scheduled flights:
 
-<table>
+<table class="center">
 	<th> Select </th>
 	<th>ID</th>
 	<th>Arrival Time</th>
@@ -20,6 +20,7 @@ Here's a list of all scheduled flights:
 	<th>Arrival Location</th>
 	<th> Airplane ID</th>
 	<th> Gate Number </th>
+	<th> Runway Number</th>
 
 <form action="/showFlights" method="POST">
 {% for flight in flights %}
@@ -33,6 +34,7 @@ Here's a list of all scheduled flights:
 		<td>{{flight['arrivalLocation']}}</td>
 		<td>{{flight['airplaneId']}}</td>
 		<td>{{flight['gate']}}</td>
+		<td>{{flight['runway']}}</td>
 	</tr>
 {% endfor %}
 </table>
