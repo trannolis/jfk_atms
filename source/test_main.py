@@ -27,9 +27,17 @@ class TestEndpoints(unittest.TestCase):
         self.assertIn(username_elem, page_html)
         self.assertIn(password_elem, page_html)
 
-    def test_register(self):
+    def test_register_redirect_atc(self):
         """
-        Tests regarding registering ATCs or pilots
+        Tests redirecting to register an atc
+        """
+        self.client.post('/register',
+                         data=dict(role="atc"),
+                         follow_redirects=True)
+
+    def test_register_redirect_pilot(self):
+        """
+        Tests redirecting to register an pilot
         """
         self.client.post('/register',
                          data=dict(role="pilot"),
