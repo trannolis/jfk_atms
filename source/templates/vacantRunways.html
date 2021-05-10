@@ -9,14 +9,12 @@
 	}
 </style>
 
-Here are all available runways
+<h1> Available Runways </h1>
 
 <form action="/changeRunway" method="POST">
-<table class="center">
+<table align="center">
 	<th> Select </th>
-	<th>ID</th>
-	<th>X_coord</th>
-	<th>Y_coord </th>
+	<th>Runway Number</th>
 	<th>Is vacant </th>
 
 {% for runway in runways %}
@@ -24,8 +22,6 @@ Here are all available runways
 		<td> <input type="radio" id={{runway['_id']}} name="select" value={{runway['_id']}} required>
 			<label for="select"></label><br> </td>
 		<td>{{runway['_id']}}</td>
-		<td>{{runway['x_coord']}}</td>
-		<td>{{runway['y_coord']}}</td>
 		<td>{{runway['is_vacant']}}</td>
 	</tr>
 {% endfor %}
