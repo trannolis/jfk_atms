@@ -1,3 +1,4 @@
+# Use this to run the app locally
 # from source  socketio
 from source import create_app
 
