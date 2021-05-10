@@ -19,7 +19,7 @@ class TestEndpoints(unittest.TestCase):
 
     def test_login_page(self):
         """
-        Tests the "Login" endpoint to for availabaility of page
+        Tests the "Login" endpoint to for availability of page
         """
         page_html = str(self.client.get('/login').data)
         username_elem = 'username'
@@ -81,6 +81,14 @@ class TestEndpoints(unittest.TestCase):
 #         self.assertIn(reg_pilot_elem, page_html)
 #         self.assertIn(user_elem, page_html)
 #         self.assertIn(logout_elem, page_html)
+
+    def test_show_user(self):
+        """
+        Tests showUser endpoint
+        """
+        page_html = str(self.client.get('/showUser').data)
+        back_elem = 'Go back'
+        self.assertIn(back_elem, page_html)
 
     def test_register_admin(self):
         """
