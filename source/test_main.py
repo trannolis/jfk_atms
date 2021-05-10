@@ -36,7 +36,7 @@ class TestEndpoints(unittest.TestCase):
                                    password="testPassword",
                                    role="admin"),
                          follow_redirects=True)
-        page_html = str(self.client.get('/loginAuth').data)
+        str(self.client.get('/loginAuth').data)
 
     def test_register_admin(self):
         """
