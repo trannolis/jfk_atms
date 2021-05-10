@@ -1,0 +1,46 @@
+<html>
+<head>
+</head>
+<body style="text-align:center">
+
+<style type="text/css">
+	table, th, td{
+		border: 1px solid black;
+	}
+</style>
+
+<h1> Occupied Runways </h1>
+
+<form action="/changeRunway" method="POST">
+<table align="center">
+	<th> Select </th>
+	<th>Runway Number</th>
+	<th>Is vacant </th>
+
+{% for runway in runways %}
+	<tr>
+		<td> <input type="radio" id={{runway['_id']}} name="select" value={{runway['_id']}} required>
+			<label for="select"></label><br> </td>
+		<td>{{runway['_id']}}</td>
+		<td>{{runway['is_vacant']}}</td>
+	</tr>
+{% endfor %}
+</table>
+<br>
+<input type="submit" value = Continue />
+{% if error %}
+	<p class="error"><strong>Error:</strong> {{error}}</p>
+{% endif %}
+</form> 
+
+<br>
+
+<br>
+<a href="/getFlights">Back</a>
+<br>
+<a href="/logout">Logout</a> 
+
+</body>
+
+
+</html>

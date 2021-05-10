@@ -13,9 +13,7 @@ class TestEndpoints(unittest.TestCase):
         """
         page_html = str(self.client.get('/').data)
         login_elem = 'Login'
-        reg_admin_elem = 'Register a new admin'
         self.assertIn(login_elem, page_html)
-        self.assertIn(reg_admin_elem, page_html)
 
     def test_login_page(self):
         """
