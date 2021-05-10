@@ -31,7 +31,7 @@ class TestEndpoints(unittest.TestCase):
         """
         Tests an admin login can occur
         """
-        self.app.post('/loginAuth',
+        self.client.post('/loginAuth',
                       data=dict(username="testUsername",
                                 password="testPassword",
                                 role="admin"),
