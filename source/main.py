@@ -239,7 +239,7 @@ def removeUser():
 def getFlights():
     '''This method fetches and displays all flights from the database'''
     flights = [flight for flight in mongo.db['flight'].find()]
-    calculateGate(1)
+    # calculateGate(1)
     return render_template('show_flights.html', flights=flights)
 
 
@@ -276,6 +276,9 @@ def vacantRunways():
     """ATC can change runway number"""
     # flight_changed = session.get('select', None)
     availableRunways = mongo.db['runway'].find({'is_vacant': {'$eq': True}})
+    if not availableRunways:
+        error = "No runways available currently"
+        return render_template('vacantRunways.html', error=error)
     runways_arr = [gate for gate in availableRunways]
     new_runwayID = request.form.get("select")
     session['new_runwayID'] = new_runwayID
@@ -286,7 +289,6 @@ def vacantRunways():
 def changeGate():
     """ATC can change Gate number for a flight"""
     new_gateID = request.form.get("select")
-    print(new_gateID)
     flight_id = session.get('select')
     mongo.db['flight'].update_one({'_id': flight_id},
                                   {'$set': {'gate': new_gateID}})
