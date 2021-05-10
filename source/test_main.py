@@ -37,8 +37,6 @@ class TestEndpoints(unittest.TestCase):
                                    role="admin"),
                          follow_redirects=True)
         page_html = str(self.client.get('/loginAuth').data)
-        elem = 'Redirecting...'
-        self.assertIn(elem, page_html)
 
     def test_register_admin(self):
         """
