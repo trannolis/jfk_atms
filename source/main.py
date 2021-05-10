@@ -7,11 +7,10 @@ from flask import render_template, request, session, url_for, redirect,\
 from .extensions import mongo, bcrypt
 import random
 from math import dist
-from datetime import datetime
+from datetime import datetime, timedelta
 main = Blueprint('main', __name__)
 
 
-# Define a route to hello function
 @main.route('/')
 def hello():
     return render_template('landing.html')
@@ -93,11 +92,13 @@ def registerAdminAuth():
         'phone_no': phone_no})
     return render_template('adminHome.html')
 
-
 # Authenticates the registration for new ATCs
+
+
 @main.route('/registerAtcAuth', methods=['GET', 'POST'])
 def registerAtcAuth():
     # grabs information from the forms
+
     username = request.form['username']
     password = request.form['password']
     first_name = request.form['first_name']
@@ -137,6 +138,9 @@ def registerPilotAuth():
         return render_template('registerPilot.html', error=error)
 
     newAirplaneID = random.randint(0, 1000)
+    newGate = random.randint(1, 138)
+    newRunway = random.randint(1, 4)
+    airportList = ['ORD', 'SFO', 'JAX', 'HCM', 'CHA', 'DFW']
 
     mongo.db.pilot.insert({
         'username': username,
@@ -148,15 +152,18 @@ def registerPilotAuth():
         'airplaneID': newAirplaneID})
 
     # make a flight to correspond with the pilot too - FAKE DATA GENERATION
+
+    td = timedelta(0.69420)
+
     mongo.db.flight.insert({
         '_id': newAirplaneID,
         'arrivalTime': datetime.now(),
-        'departureTime': datetime.now(),
-        'departureLocation': 'nowhere',
+        'departureTime': datetime.now() + td,
+        'departureLocation': random.choice(airportList),
         'arrivalLocation': 'JFK',
         'airplaneID': newAirplaneID,
-        'gate': -1,
-        'runway': -1})
+        'gate': newGate,
+        'runway': newRunway})
     return render_template('adminHome.html')
 
 
@@ -174,8 +181,10 @@ def pilotHome():
     pilot = mongo.db['pilot'].find_one_or_404({'username': username})
     first_name = pilot['firstName']
     airplaneID = pilot['airplaneID']
+    print(airplaneID)
     try:
-        flight = mongo.db['flight'].find_one_or_404({'airplaneID': airplaneID})
+        flight = mongo.db['flight'].find_one_or_404({'airplaneID':
+                                                     int(airplaneID)})
         arrivalTime = flight['arrivalTime']
         arrivalLocation = flight['arrivalLocation']
         return render_template('pilot_landing.html', name=first_name,
@@ -245,6 +254,8 @@ def getFlights():
 
 @main.route('/showFlights', methods=["GET", "POST"])
 def showFlights():
+    # flights = mongo.db['flight'].find()
+    # flights_arr = [flight for flight in flights]
     flight_id = request.form.get("select")
     print("flight ID is: " + str(flight_id) + " from showFlights")
     session['select'] = flight_id
@@ -257,7 +268,8 @@ def showFlights():
 
 @main.route('/vacantGates', methods=["GET", "POST"])
 def vacantGates():
-    """ATC can changega te number"""
+    """ATC can change gate number"""
+    # gate_changed = session.get('select', None)
     availableGates = mongo.db['gate'].find({'is_vacant': {'$eq': True}})
     gates_arr = [gate for gate in availableGates]
     return render_template('vacantGates.html', gates=gates_arr)
@@ -266,6 +278,7 @@ def vacantGates():
 @main.route('/vacantRunways', methods=["GET", "POST"])
 def vacantRunways():
     """ATC can change runway number"""
+    # flight_changed = session.get('select', None)
     availableRunways = mongo.db['runway'].find({'is_vacant': {'$eq': True}})
     if not availableRunways:
         error = "No runways available currently"
@@ -283,12 +296,12 @@ def changeGate():
     flight_id = session.get('select')
     old_flight = mongo.db['flight'].find_one({'_id': int(flight_id)})
     old_gate = old_flight['gate']
-    mongo.db['flight'].update_one({'_id': int(flight_id)},
-                                  {'$set': {'gate': int(new_gateID)}})
-    mongo.db['gate'].update_one({'_id': int(new_gateID)},
-                                {'$set': {'is_vacant': False}})
-    mongo.db['gate'].update_one({'_id': int(old_gate)},
-                                {'$set': {'is_vacant': True}})
+    mongo.db['flight'].update_one({'_id': int(flight_id)}, {'$set':
+                                  {'gate': int(new_gateID)}})
+    mongo.db['gate'].update_one({'_id': int(new_gateID)}, {'$set':
+                                {'is_vacant': False}})
+    mongo.db['gate'].update_one({'_id': int(old_gate)}, {'$set':
+                                {'is_vacant': True}})
     return redirect('/getFlights')
 
 
@@ -299,12 +312,12 @@ def changeRunway():
     flight_id = session.get('select')
     old_flight = mongo.db['flight'].find_one({'_id': int(flight_id)})
     old_runway = old_flight['runway']
-    mongo.db['flight'].update_one({'_id': int(flight_id)},
-                                  {'$set': {'runway': int(runwayID)}})
-    mongo.db['runway'].update_one({'_id': int(runwayID)},
-                                  {'$set': {'is_vacant': False}})
-    mongo.db['runway'].update_one({'_id': int(old_runway)},
-                                  {'$set': {'is_vacant': True}})
+    mongo.db['flight'].update_one({'_id': int(flight_id)}, {'$set':
+                                  {'runway': int(runwayID)}})
+    mongo.db['runway'].update_one({'_id': int(runwayID)}, {'$set':
+                                  {'is_vacant': False}})
+    mongo.db['runway'].update_one({'_id': int(old_runway)}, {'$set':
+                                  {'is_vacant': True}})
     return redirect('/getFlights')
 
 
