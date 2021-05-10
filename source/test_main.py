@@ -27,15 +27,15 @@ class TestEndpoints(unittest.TestCase):
         self.assertIn(username_elem, page_html)
         self.assertIn(password_elem, page_html)
 
- #   def test_admin_login(self):
- #       """
- #       Tests an admin login can occur
- #       """
- #       self.client.post('/loginAuth',
- #                        data=dict(username="testUsername",
- #                                  password="testPassword",
- #                                  role="admin"),
- #                        follow_redirects=True)
+ #    def test_admin_login(self):
+ #        """
+ #        Tests an admin login can occur
+ #        """
+ #        self.client.post('/loginAuth',
+ #                         data=dict(username="testUsername",
+ #                                   password="testPassword",
+ #                                   role="admin"),
+ #                         follow_redirects=True)
 
     def test_register_admin(self):
         """
