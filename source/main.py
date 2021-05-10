@@ -245,8 +245,6 @@ def getFlights():
 
 @main.route('/showFlights', methods=["GET", "POST"])
 def showFlights():
-    # flights = mongo.db['flight'].find()
-    # flights_arr = [flight for flight in flights]
     flight_id = request.form.get("select")
     print("flight ID is: " + str(flight_id) + " from showFlights")
     session['select'] = flight_id
@@ -259,22 +257,15 @@ def showFlights():
 
 @main.route('/vacantGates', methods=["GET", "POST"])
 def vacantGates():
-    """ATC can change gate number"""
-    # gate_changed = session.get('select', None)
+    """ATC can changega te number"""
     availableGates = mongo.db['gate'].find({'is_vacant': {'$eq': True}})
     gates_arr = [gate for gate in availableGates]
-    print(len(gates_arr))
-    # mongo.db['flight'].updateOne({'_id': flight_changed},
-    # {'$set' : {'gate': new_gateID}})
-    # mongo.db['gate'].updateOne({'_id': new_gateID},
-    # {'$set' : {'is_vacant': False}})
     return render_template('vacantGates.html', gates=gates_arr)
 
 
 @main.route('/vacantRunways', methods=["GET", "POST"])
 def vacantRunways():
     """ATC can change runway number"""
-    # flight_changed = session.get('select', None)
     availableRunways = mongo.db['runway'].find({'is_vacant': {'$eq': True}})
     if not availableRunways:
         error = "No runways available currently"
@@ -290,10 +281,14 @@ def changeGate():
     """ATC can change Gate number for a flight"""
     new_gateID = request.form.get("select")
     flight_id = session.get('select')
-    mongo.db['flight'].update_one({'_id': flight_id},
-                                  {'$set': {'gate': new_gateID}})
-    mongo.db['gate'].update_one({'_id': new_gateID},
+    old_flight = mongo.db['flight'].find_one({'_id': int(flight_id)})
+    old_gate = old_flight['gate']
+    mongo.db['flight'].update_one({'_id': int(flight_id)},
+                                  {'$set': {'gate': int(new_gateID)}})
+    mongo.db['gate'].update_one({'_id': int(new_gateID)},
                                 {'$set': {'is_vacant': False}})
+    mongo.db['gate'].update_one({'_id': int(old_gate)},
+                                {'$set': {'is_vacant': True}})
     return redirect('/getFlights')
 
 
@@ -301,11 +296,15 @@ def changeGate():
 def changeRunway():
     """ATC can change Runway number for a flight"""
     runwayID = request.form.get("select")
-    # flight_id = session.get('select')
-    # mongo.db['flight'].update_one({'_id': flight_id},
-    # {'$set' : {'runway': runwayID}})
-    mongo.db['runway'].update_one({'_id': runwayID},
+    flight_id = session.get('select')
+    old_flight = mongo.db['flight'].find_one({'_id': int(flight_id)})
+    old_runway = old_flight['runway']
+    mongo.db['flight'].update_one({'_id': int(flight_id)},
+                                  {'$set': {'runway': int(runwayID)}})
+    mongo.db['runway'].update_one({'_id': int(runwayID)},
                                   {'$set': {'is_vacant': False}})
+    mongo.db['runway'].update_one({'_id': int(old_runway)},
+                                  {'$set': {'is_vacant': True}})
     return redirect('/getFlights')
 
 

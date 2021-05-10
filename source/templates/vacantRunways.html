@@ -1,7 +1,7 @@
 <html>
 <head>
 </head>
-<body>
+<body style="text-align:center">
 
 <style type="text/css">
 	table, th, td{
@@ -12,16 +12,16 @@
 Here are all available runways
 
 <form action="/changeRunway" method="POST">
-<table>
+<table class="center">
 	<th> Select </th>
 	<th>ID</th>
 	<th>X_coord</th>
 	<th>Y_coord </th>
-	<th>Is vacant</th>
+	<th>Is vacant </th>
 
 {% for runway in runways %}
 	<tr>
-		<td> <input type="radio" id={{runway[id]}} name="select" value={{runway[id]}} required>
+		<td> <input type="radio" id={{runway['_id']}} name="select" value={{runway['_id']}} required>
 			<label for="select"></label><br> </td>
 		<td>{{runway['_id']}}</td>
 		<td>{{runway['x_coord']}}</td>
