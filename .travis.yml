@@ -2,20 +2,20 @@
 language: python
 
 python:
-  - '3.8'
+- '3.8'
 
 install:
-    - make dev_env
+- make dev_env
 
-env:
-    PYTHONPATH=$(pwd)
+env: PYTHONPATH=$(pwd)
 
 script:
-    - make tests
+- make tests
 
 deploy:
   provider: heroku
   api_key:
-    secure: K7grFekWr5CbTSBMEFcRVwPZgQkOm1gWLxnOSrQqwZ+1XA5luttvHCa8Zr+b+aGiie7U3YKzB/TIBeiv6j0fOSkdAzidcxD9zJT2nB1Dc1aFbBz1DQIbXOFMgG8GE3yPgnmP27Oqkbv76hDZG2s/BzrJRAgksnQ8gJVg5meX1dtj1O1kr7Dkvamrf59gqGqOx1+mSMrHXyw5pUFkUxwsh6CZ+bMwfd7kk+/XhlpQzONlPwOJsjGv7/MlMSxYCJF3D2nNlCM5myFAGnvQllv/aA1iSFHHO3kjHXaKxOWYcRYT5v0/uBK5iailD8bc0O3V4oMYXk5oft/LNHSplQIV7IHqGNgjL5wdf2yIf+OIvhisCP+4+efguwL8ZTOpBAKOAtoY3ohFeaRtBuYDmRoVLFJPeqqKa1j68Hq7jfaXZUHAFzoeB80tk6HXsvhJjFiP34Rs7f94MOUdsrBoq9jO4WUUaYGV7xLHGGq5MHKjMPTsGaEpQZf2vDsETQp1SSKvauBkurvGrEgDAGLxNfcygTP//OFbsQPHX7zlDKcMsMfzrDqzfCRe+5HlZaY6xUn0amtTDsFfrAftr5bMCiy5Y0bbYXsjwXwXd5xxlxLyfLqkngpxsXLGVBDBhDyjnYgxct3HsajIEKzk8H9VPF0jTwb/+snnkDINA+d13Kw5GC8=
-  app: jfk-atms
-  on: main
+    secure: M8H8J7sdQslTEDuw1RovQQpAO7fnNY5zTlgZRBaCxahvDiQeJ1JOKYuidtybzOQPKYlXirxf+L+5rBUrsDQ6xJKcMtEE8842f/vgd6HRbWO5kdrU9qpewpFw/8m1ltJu0asYZzPYG9rCamUEj3bSkDdp/GCX5KS6+Gb5yDy26SGu8DAWLfILqgha8gcXso0Cb5ZzUOH8Z3SrH2fMVAAPUQtRpQRpowTgCjHCrOG8mmp1H5oRggAbNVT+uX6ZdUmfrxcelC573rfz0J7edCEOUxsASBG6ZJOvXRzmev+cEk2tNgJFYX9Km2GLWoa8RCiZwJPO9TJ7nSWVyjXPaEqwEkNDZ27mDXYSDGd0pIJj9wVqw6qCDmHJxQ9kW9wRHQ0jmgomi5caTHNtWWSd6UGSnvzxMuC45qHoJ3lr+bseGdLSVCcwWd76I3PZDRVUaxWZaL6iuEikjEvY65RkXtn3UNM1bi4R7hBKHj/LCkrbM+AGqInPmJtrTg5tX7CwEcdBMFfyysZG+p8/ID1auj9WrXO1nCiiGaaKCpH7REo3960aM0N/8bmlZHE7kR9TAnWvnPtHo1COdRl0YD9SezR9O3+Cd208ZrVlnxpmzoqoADPVdUIFk7itNPJkCsn+x+qQJ8tPq0I+8G/l/BCoTlVisieIbmJyVIx7NEAl28qIrUw=
+  app: jfkatms
+  true: master
+
