@@ -1,0 +1,52 @@
+<html>
+<head>
+</head>
+<body style="text-align:center">
+
+<style type="text/css">
+	table, th, td{
+		border: 1px solid black;
+	}
+</style>
+
+<h1>Occupied Gates </h1>
+
+<form action="/changeGate" method="POST">
+
+<table align="center">
+	<th> Select </th>
+	<th>ID</th>
+	<th>X_coord</th>
+	<th>Y_coord </th>
+	<th>Is vacant </th>
+	<th>In service</th>
+	<th> Terminal </th>
+
+{% for gate in gates %}
+	<tr>
+		<td> <input type="radio" id={{gate['_id']}} name="select" value={{gate['_id']}} required>
+			<label for="select"></label><br> </td>
+		<td>{{gate['_id']}}</td>
+		<td>{{gate['x_coord']}}</td>
+		<td>{{gate['y_coord']}}</td>
+		<td>{{gate['is_vacant']}}</td>
+		<td>{{gate['in_service']}}</td>
+		<td>{{gate['terminal']}}</td>
+	</tr>
+{% endfor %}
+</table>
+<br>
+<input type="submit" value = Continue />
+{% if error %}
+	<p class="error"><strong>Error:</strong> {{error}}</p>
+{% endif %}
+</form> 
+<br>
+
+<br>
+<a href="/getFlights">Back</a>
+<br>
+<a href="/logout">Logout</a> 
+
+</body>
+</html>

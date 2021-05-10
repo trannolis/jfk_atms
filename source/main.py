@@ -138,8 +138,8 @@ def registerPilotAuth():
         return render_template('registerPilot.html', error=error)
 
     newAirplaneID = random.randint(0, 1000)
-    newGate = random.randint(1, 138)
-    newRunway = random.randint(1, 4)
+    # newGate = random.randint(1, 138)
+    # newRunway = random.randint(1, 4)
     airportList = ['ORD', 'SFO', 'JAX', 'HCM', 'CHA', 'DFW']
 
     mongo.db.pilot.insert({
@@ -162,8 +162,9 @@ def registerPilotAuth():
         'departureLocation': random.choice(airportList),
         'arrivalLocation': 'JFK',
         'airplaneID': newAirplaneID,
-        'gate': newGate,
-        'runway': newRunway})
+        'gate': -1,
+        'runway': -1})
+    calculateGate(newAirplaneID)
     return render_template('adminHome.html')
 
 
@@ -260,10 +261,66 @@ def showFlights():
     print("flight ID is: " + str(flight_id) + " from showFlights")
     session['select'] = flight_id
     update = request.form.get("update")
+    vacate = request.form.get("gate")
     if update == 'gate':
         return redirect('/vacantGates')
-    else:
+    elif update == 'runway':
         return redirect('/vacantRunways')
+    elif vacate and vacate == 'freeRunway':
+        return redirect('/occupiedRunways')
+    elif vacate and vacate == 'freeGate':
+        return redirect('/occupiedGates')
+
+
+@main.route('/occupiedGates', methods=["GET", "POST"])
+def occupiedGates():
+    """ATC can change gate number"""
+    # gate_changed = session.get('select', None)
+    availableGates = mongo.db['gate'].find({'is_vacant': {'$eq': False}})
+    gates_arr = [gate for gate in availableGates]
+    return render_template('occupiedGates.html', gates=gates_arr)
+
+
+@main.route('/occupiedRunways', methods=["GET", "POST"])
+def occupiedRunways():
+    """ATC can change runway number"""
+    availableRunways = mongo.db['runway'].find({'is_vacant': {'$eq': False}})
+    runways_arr = [gate for gate in availableRunways]
+    new_runwayID = request.form.get("select")
+    session['new_runwayID'] = new_runwayID
+    return render_template('occupiedRunways.html', runways=runways_arr)
+
+
+@main.route('/vacateGate', methods=["GET", "POST"])
+def vacateGate():
+    """ATC can change Gate number for a flight"""
+    toVacate = request.form.get("select")
+    mongo.db['flight'].update_one({'gate': int(toVacate)}, {'$set':
+                                  {'gate': -1}})
+    mongo.db['gate'].update_one({'_id': int(toVacate)}, {'$set':
+                                {'is_vacant': True}})
+    next_flight = mongo.db['queue']\
+        .find_one_and_delete({'waiting_for': 'gate'})
+    if next_flight:
+        mongo.db['flight'].update_one({'_id': int(next_flight['_id'])},
+                                      {'$set': {'gate': toVacate}})
+    return redirect('/getFlights')
+
+
+@main.route('/vacateRunway', methods=["GET", "POST"])
+def vacateRunway():
+    """ATC can change Runway number for a flight"""
+    toVacate = request.form.get("select")
+    mongo.db['flight'].update_one({'runway': int(toVacate)}, {'$set':
+                                  {'runway': -1}})
+    mongo.db['runway'].update_one({'_id': int(toVacate)}, {'$set':
+                                  {'is_vacant': True}})
+    next_flight = mongo.db['queue']\
+        .find_one_and_delete({'waiting_for': 'runway'})
+    if next_flight:
+        mongo.db['flight'].update_one({'_id': int(next_flight['_id'])},
+                                      {'$set': {'runway': toVacate}})
+        return redirect('/getFlights')
 
 
 @main.route('/vacantGates', methods=["GET", "POST"])
