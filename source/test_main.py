@@ -31,7 +31,9 @@ class TestEndpoints(unittest.TestCase):
         """
         Tests an admin login can occur
         """
-        self.app.post('/loginAuth', data = dict(username="testUsername", password="testPassword", role = "admin" ), follow_redirects=True)
+        self.app.post('/loginAuth', 
+                      data=dict(username="testUsername", password="testPassword", role="admin"), 
+                      follow_redirects=True)
         page_html = str(self.client.get('/loginAuth').data)
         elem = 'Redirecting...'
         self.assertIn(elem, page_html)
