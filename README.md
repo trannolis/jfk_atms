@@ -43,7 +43,7 @@ Runs the flask application on localhost:5000
 ## Glossary
 
 * Users refer to Air Traffic Controllers (ATCs) and pilots
-* Administrators refers to sernior staff in charge of maintaining the ATC system
+* Administrators refers to senior staff in charge of maintaining the ATC system
 
 ### Authentication
 
