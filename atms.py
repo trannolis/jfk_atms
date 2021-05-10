@@ -1,4 +1,4 @@
-# Use this to run the app locally
+# Use this to run the website locally
 # from source  socketio
 from source import create_app
 
