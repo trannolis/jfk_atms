@@ -9,14 +9,14 @@
 	}
 </style>
 
-Here's a list of all scheduled flights:
+<h1> All Scheduled Flights </h1>
 
-<table class="center">
+<table align="center">
 	<th> Select </th>
 	<th>ID</th>
 	<th>Arrival Time</th>
 	<th>Departure Time</th>
-	<th>Departure Location/th>
+	<th>Departure Location </th>
 	<th>Arrival Location</th>
 	<th> Airplane ID</th>
 	<th> Gate Number </th>
@@ -32,7 +32,7 @@ Here's a list of all scheduled flights:
 		<td>{{flight['departureTime']}}</td>
 		<td>{{flight['departureLocation']}}</td>
 		<td>{{flight['arrivalLocation']}}</td>
-		<td>{{flight['airplaneId']}}</td>
+		<td>{{flight['airplaneID']}}</td>
 		<td>{{flight['gate']}}</td>
 		<td>{{flight['runway']}}</td>
 	</tr>
@@ -44,7 +44,7 @@ Here's a list of all scheduled flights:
 	<label for="update">Update Gate</label><br> </td>
 <td> <input type="radio" id="runway" name="update" value="runway"required>
 	<label for="update">Update Runway </label><br> </td>
-
+<br>
 <input type="submit" value = Continue />
 {% if error %}
 	<p class="error"><strong>Error:</strong> {{error}}</p>
@@ -53,7 +53,7 @@ Here's a list of all scheduled flights:
 </form>
 
 <br>
-<a href="/atcLanding">Back</a>
+<a href="/atcHome">Back</a>
 <br>
 <a href="/logout">Logout</a> 
 
