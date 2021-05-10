@@ -69,6 +69,9 @@ class TestEndpoints(unittest.TestCase):
         """
         Tests endpoint for admin home page
         """
+        self.client.post('/adminHome',
+                         data=dict(username="testAdmin"),
+                         follow_redirects=False)
         page_html = str(self.client.get('adminHome').data)
         reg_atc_elem = 'Register a new Air Traffic Controller'
         reg_pilot_elem = 'Register a new Pilot'
