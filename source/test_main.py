@@ -25,6 +25,16 @@ class TestEndpoints(unittest.TestCase):
         self.assertIn(username_elem, page_html)
         self.assertIn(password_elem, page_html)
 
+    def test_login_admin(self):
+        """
+        Tests the ability of an admin to login
+        """
+        self.client.post('/loginAuth',
+                         data=dict(username="admin",
+                                   password="test",
+                                   role="admin"),
+                         follow_redirects=True)
+
     def test_register_redirect_atc(self):
         """
         Tests redirecting to register an atc
