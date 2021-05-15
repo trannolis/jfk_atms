@@ -234,9 +234,9 @@ class TestEndpoints(unittest.TestCase):
         success_elem = 'You have successfully deleted'
         delete_elem = 'Delete another user'
         back_elem = 'Go Home'
-        self.assertIn(success_elem,page_html)
-        self.assertIn(delete_elem,page_html)
-        self.assertIn(back_elem,page_html)
+        self.assertIn(success_elem, page_html)
+        self.assertIn(delete_elem, page_html)
+        self.assertIn(back_elem, page_html)
 
     def test_register_admin(self):
         """
