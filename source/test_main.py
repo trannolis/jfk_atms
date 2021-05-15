@@ -1,6 +1,6 @@
 import unittest
 from source import create_app
-from extensions import mongo
+from .extensions import mongo
 
 
 class TestEndpoints(unittest.TestCase):
