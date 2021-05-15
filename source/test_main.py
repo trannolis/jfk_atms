@@ -362,8 +362,6 @@ class TestEndpoints(unittest.TestCase):
         runway_elem = 'Runway Number'
         updateg_elem = 'Update Gate'
         updater_elem = 'Update Runway'
-        freeg_elem = 'Free Up Gate'
-        freer_elem = 'Free Up Runway'
         submit_elem = 'Continue'
         back_elem = 'Back'
         logout_elem = 'Logout'
@@ -379,8 +377,6 @@ class TestEndpoints(unittest.TestCase):
         self.assertIn(runway_elem, page_html)
         self.assertIn(updateg_elem, page_html)
         self.assertIn(updater_elem, page_html)
-        self.assertIn(freeg_elem, page_html)
-        self.assertIn(freer_elem, page_html)
         self.assertIn(submit_elem, page_html)
         self.assertIn(back_elem, page_html)
         self.assertIn(logout_elem, page_html)
@@ -391,8 +387,7 @@ class TestEndpoints(unittest.TestCase):
         """
         self.client.post('/showFlights',
                          data=dict(select="299",
-                                   update="gate",
-                                   vacate="freeGate"),
+                                   update="gate"),
                          follow_redirects=True)
         page_html = str(self.client.get('/vacantGates').data)
         title_elem = 'Available Gates'
@@ -424,8 +419,7 @@ class TestEndpoints(unittest.TestCase):
         """
         self.client.post('/showFlights',
                          data=dict(select="299",
-                                   update="runway",
-                                   vacate="freeRunway"),
+                                   update="runway"),
                          follow_redirects=True)
         page_html = str(self.client.get('/vacantRunways').data)
         title_elem = 'Available Runways'
