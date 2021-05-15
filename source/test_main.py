@@ -526,7 +526,7 @@ class TestEndpoints(unittest.TestCase):
         """
         self.client.post('/changeGate',
                          data=dict(select="6",
-                                  flight_id="299"),
+                                   flight_id="299"),
                          follow_redirects=True)
         page_html = str(self.client.get('/getFlights').data)
         title_elem = 'All Scheduled Flights'
