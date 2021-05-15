@@ -4,7 +4,7 @@ from source import create_app
 
 class TestEndpoints(unittest.TestCase):
     def setUp(self):
-        self.app = create_app('source.settings', False)
+        self.app = create_app('source.settings', True)
         self.client = self.app.test_client()
 
     def test_landing(self):
