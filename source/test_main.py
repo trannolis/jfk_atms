@@ -221,7 +221,7 @@ class TestEndpoints(unittest.TestCase):
         """
         Tests endpoint for admin home page
         """
-        with patch("app.session", dict()) as session:
+        with patch("self.app.session", dict()) as session:
             response = self.client.post("/adminHome",
                                         data={"username": "admin"})
         assert session.get("username") == "admin"
