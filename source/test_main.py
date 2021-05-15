@@ -34,6 +34,15 @@ class TestEndpoints(unittest.TestCase):
                                    password="test",
                                    role="admin"),
                          follow_redirects=True)
+        page_html = str(self.client.get('adminHome').data)
+        reg_atc_elem = 'Register a new Air Traffic Controller'
+        reg_pilot_elem = 'Register a new Pilot'
+        user_elem = 'Delete an existing user'
+        logout_elem = 'Logout'
+        self.assertIn(reg_atc_elem, page_html)
+        self.assertIn(reg_pilot_elem, page_html)
+        self.assertIn(user_elem, page_html)
+        self.assertIn(logout_elem, page_html)
 
     def test_register_redirect_atc(self):
         """
