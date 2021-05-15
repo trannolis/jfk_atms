@@ -72,6 +72,8 @@ class TestEndpoints(unittest.TestCase):
                                    password="test",
                                    role="admin"),
                          follow_redirects=True)
+        page_html = str(self.client.get('/loginAuth').data)
+        print(page_html)
 
     def test_login_pilot(self):
         """
