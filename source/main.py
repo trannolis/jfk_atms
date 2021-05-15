@@ -83,7 +83,7 @@ def registerAdminAuth():
         error = "This user already exists"
         return render_template('registerAdmin.html', error=error)
 
-    mongo.db.admin.insert({
+    mongo.db.admin.insert_one({
         'username': username,
         'password': hashed,
         'firstName': first_name,
@@ -111,7 +111,7 @@ def registerAtcAuth():
         error = "This user already exists"
         return render_template('home.html', error=error)
 
-    mongo.db.atc.insert({
+    mongo.db.atc.insert_one({
         'username': username,
         'password': hashed,
         'firstName': first_name,
@@ -142,7 +142,7 @@ def registerPilotAuth():
     # newRunway = random.randint(1, 4)
     airportList = ['ORD', 'SFO', 'JAX', 'HCM', 'CHA', 'DFW']
 
-    mongo.db.pilot.insert({
+    mongo.db.pilot.insert_one({
         'username': username,
         'password': hashed,
         'firstName': first_name,
@@ -155,7 +155,7 @@ def registerPilotAuth():
 
     td = timedelta(0.69420)
 
-    mongo.db.flight.insert({
+    mongo.db.flight.insert_one({
         '_id': newAirplaneID,
         'arrivalTime': datetime.now(),
         'departureTime': datetime.now() + td,
@@ -387,7 +387,7 @@ def logout():
 def calculateGate(flightId):
     runway = mongo.db['runway'].find_one({'is_vacant': True})
     if not runway:
-        mongo.db['queue'].insert({'_id': flightId,
+        mongo.db['queue'].insert_one({'_id': flightId,
                                  'waiting_for': 'runway'})
     else:
         runway = runway['_id'], runway['x_coord'], runway['y_coord']
