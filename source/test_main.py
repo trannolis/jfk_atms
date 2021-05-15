@@ -392,7 +392,7 @@ class TestEndpoints(unittest.TestCase):
         self.client.post('/showFlights',
                          data=dict(select="299",
                                    update="gate",
-                                   vacate="freeGate")
+                                   vacate="freeGate"),
                          follow_redirects=True)
         page_html = str(self.client.get('/vacantGates').data)
         print(page_html)
