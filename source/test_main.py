@@ -1,4 +1,5 @@
 import unittest
+fromt unittest.mock import patch
 from source import create_app
 
 
@@ -220,9 +221,13 @@ class TestEndpoints(unittest.TestCase):
         """
         Tests endpoint for admin home page
         """
-        self.client.post('/adminHome',
-                         data=dict(username="admin"),
-                         follow_redirects=True)
+        with patch("app.session", dict()) as session:
+            response = self.client.post("/adminHome", data={"username": "admin"})
+        assert session.get("username") == "admin"
+        print(response.data)
+#         self.client.post('/adminHome',
+#                          data=dict(username="admin"),
+#                          follow_redirects=True)
 #         page_html = str(self.client.get('/adminHome').data)
 #         reg_atc_elem = 'Register a new Air Traffic Controller'
 #         reg_pilot_elem = 'Register a new Pilot'
