@@ -1,0 +1,16 @@
+body {
+  background-image: url( backdrop.jpg );
+  background-color: powderblue;
+  font-family: Helvetica, Arial, sans-serif;
+  color: black;
+}
+
+/*
+ * Formatting the header area
+ */
+
+h1 {
+  color: black;
+  height: 60px;
+  margin-bottom: 50px;
+}
