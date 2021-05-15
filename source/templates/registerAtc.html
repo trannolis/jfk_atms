@@ -1,7 +1,10 @@
 <html>
+
 <head>
-	<h1 style="text-align:center"> Register A New Air Traffic Controller</h1>
+    <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
 </head>
+
+<h1 style="text-align:center"> Register A New Air Traffic Controller</h1>
 <body style="text-align:center">
 <form action="/registerAtcAuth" method="POST">
 	<input type="text" name = "username" placeholder="Username" required/> </br>
