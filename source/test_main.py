@@ -306,6 +306,29 @@ class TestEndpoints(unittest.TestCase):
         self.assertIn(back_elem, page_html)
         self.assertIn(logout_elem, page_html)
 
+    def test_occupied_runways(self):
+        """
+        Tests endpoint for occupied gates
+        """
+        self.client.post('/occupiedRunways',
+                         date=dict(select="1"),
+                         follow_redirects=True)
+        page_html = str(self.client.get('/occupiedRunways').data)
+        title_elem = 'Occupied Runways'
+        select_elem = 'Select'
+        runway_elem = 'Runway Number'
+        vacant_elem = 'Is vacant'
+        submit_elem = 'Continue'
+        back_elem = 'Back'
+        logout_elem = 'Logout'
+        self.assertIn(title_elem, page_html)
+        self.assertIn(select_elem, page_html)
+        self.assertIn(runway_elem, page_html)
+        self.assertIn(vacant_elem, page_html)
+        self.assertIn(submit_elem, page_html)
+        self.assertIn(back_elem, page_html)
+        self.assertIn(logout_elem, page_html)
+
     def test_register_admin(self):
         """
         Tests registering Admins
