@@ -9,10 +9,12 @@ class TestEndpoints(unittest.TestCase):
 
     def test_landing(self):
         """
-        Tests the "Landing" endpoint for admins
+        Tests the '/' endpoint for admins
         """
         page_html = str(self.client.get('/').data)
+        title_elem = 'Welcome to ATMS'
         login_elem = 'Login'
+        self.assertIn(title_elem, page_html)
         self.assertIn(login_elem, page_html)
 
     def test_login_page(self):
@@ -20,10 +22,46 @@ class TestEndpoints(unittest.TestCase):
         Tests the "Login" endpoint to for availability of page
         """
         page_html = str(self.client.get('/login').data)
+        query_elem = 'Please select your role:'
+        admin_elem = 'Admin'
+        atc_elem = 'Air Traffic Controller'
+        pilot_elem = 'Pilot'
         username_elem = 'username'
         password_elem = 'password'
+        submit_elem = 'Login'
+        back_elem = 'Go back'
+        self.assertIn(query_elem, page_html)
+        self.assertIn(admin_elem, page_html)
+        self.assertIn(atc_elem, page_html)
+        self.assertIn(pilot_elem, page_html)
         self.assertIn(username_elem, page_html)
         self.assertIn(password_elem, page_html)
+        self.assertIn(submit_elem, page_html)
+        self.assertIn(back_elem, page_html)
+
+    def test_register_admin(self):
+        """
+        Tests registering Admins
+        """
+        page_html = str(self.client.get('/registerAdmin').data)
+        title_elem = 'Register A New Admin'
+        username_elem = 'Username'
+        password_elem = 'Password'
+        first_name_elem = 'First Name'
+        last_name_elem = 'Last Name'
+        email_elem = 'Email'
+        phone_number_elem = 'Phone No.'
+        submit_elem = 'Register'
+        back_elem = 'Go back'
+        self.assertIn(title_elem, page_html)
+        self.assertIn(username_elem, page_html)
+        self.assertIn(password_elem, page_html)
+        self.assertIn(first_name_elem, page_html)
+        self.assertIn(last_name_elem, page_html)
+        self.assertIn(email_elem, page_html)
+        self.assertIn(phone_number_elem, page_html)
+        self.assertIn(submit_elem, page_html)
+        self.assertIn(back_elem, page_html)
 
     def test_login_admin(self):
         """
@@ -34,6 +72,9 @@ class TestEndpoints(unittest.TestCase):
                                    password="test",
                                    role="admin"),
                          follow_redirects=True)
+
+#         page_html = str(self.client.get('/loginAuth').data)
+#         print(page_html)
 
     def test_login_pilot(self):
         """
@@ -63,6 +104,10 @@ class TestEndpoints(unittest.TestCase):
                          data=dict(role="atc"),
                          follow_redirects=True)
 
+#         page_html = str(self.client.get('/registerAtc').data)
+#         print("Test 1")
+#         print(page_html)
+
     def test_register_redirect_pilot(self):
         """
         Tests redirecting to register an pilot
@@ -70,6 +115,58 @@ class TestEndpoints(unittest.TestCase):
         self.client.post('/register',
                          data=dict(role="pilot"),
                          follow_redirects=True)
+
+#         page_html = str(self.client.get('/registerPilot').data)
+#         print("Test 2")
+#         print(page_html)
+
+    def test_register_atc(self):
+        """
+        Tests registering Air Traffic Controllers
+        """
+        page_html = str(self.client.get('/registerAtc').data)
+        title_elem = 'Register A New Air Traffic Controller'
+        username_elem = 'Username'
+        password_elem = 'Password'
+        first_name_elem = 'First Name'
+        last_name_elem = 'Last Name'
+        email_elem = 'Email'
+        phone_number_elem = 'Phone No.'
+        submit_elem = 'Register'
+        back_elem = 'Go back'
+        self.assertIn(title_elem, page_html)
+        self.assertIn(username_elem, page_html)
+        self.assertIn(password_elem, page_html)
+        self.assertIn(first_name_elem, page_html)
+        self.assertIn(last_name_elem, page_html)
+        self.assertIn(email_elem, page_html)
+        self.assertIn(phone_number_elem, page_html)
+        self.assertIn(submit_elem, page_html)
+        self.assertIn(back_elem, page_html)
+
+    def test_register_pilot(self):
+        """
+        Tests registering Pilots
+        """
+        page_html = str(self.client.get('/registerPilot').data)
+        title_elem = 'Register A New Pilot'
+        username_elem = 'Username'
+        password_elem = 'Password'
+        first_name_elem = 'First Name'
+        last_name_elem = 'Last Name'
+        email_elem = 'Email'
+        phone_number_elem = 'Phone No.'
+        submit_elem = 'Register'
+        back_elem = 'Go back'
+        self.assertIn(title_elem, page_html)
+        self.assertIn(username_elem, page_html)
+        self.assertIn(password_elem, page_html)
+        self.assertIn(first_name_elem, page_html)
+        self.assertIn(last_name_elem, page_html)
+        self.assertIn(email_elem, page_html)
+        self.assertIn(phone_number_elem, page_html)
+        self.assertIn(submit_elem, page_html)
+        self.assertIn(back_elem, page_html)
 
     def test_register_auth_admin(self):
         """
@@ -138,7 +235,7 @@ class TestEndpoints(unittest.TestCase):
 
     def test_pilot_home(self):
         """
-        Tests endpoint for admin home page
+        Tests endpoint for pilot home page
         """
         self.client.post('/pilotHome',
                          data=dict(username="pilot"),
@@ -146,7 +243,7 @@ class TestEndpoints(unittest.TestCase):
 
     def test_atc_home(self):
         """
-        Tests endpoint for admin home page
+        Tests endpoint for atc home page
         """
         self.client.post('/atcHome',
                          data=dict(username="atc"),
@@ -157,7 +254,17 @@ class TestEndpoints(unittest.TestCase):
         Tests showUser endpoint
         """
         page_html = str(self.client.get('/showUser').data)
+        title_elem = 'Please select the role of the user you want to delete'
+        admin_elem = 'Admin'
+        atc_elem = 'ATC'
+        pilot_elem = 'Pilot'
+        submit_elem = 'Continue'
         back_elem = 'Go back'
+        self.assertIn(title_elem, page_html)
+        self.assertIn(admin_elem, page_html)
+        self.assertIn(atc_elem, page_html)
+        self.assertIn(pilot_elem, page_html)
+        self.assertIn(submit_elem, page_html)
         self.assertIn(back_elem, page_html)
 
     def test_select_admins(self):
@@ -278,6 +385,64 @@ class TestEndpoints(unittest.TestCase):
         self.assertIn(back_elem, page_html)
         self.assertIn(logout_elem, page_html)
 
+    def test_show_flights_vacant_gate(self):
+        """
+        Tests endpoint for showing flights with vacant gates
+        """
+        self.client.post('/showFlights',
+                         data=dict(select="299",
+                                   update="gate",
+                                   vacate="freeGate"),
+                         follow_redirects=True)
+        page_html = str(self.client.get('/vacantGates').data)
+        title_elem = 'Available Gates'
+        select_elem = 'Select'
+        id_elem = 'ID'
+        x_elem = 'X_coord'
+        y_elem = 'Y_coord'
+        vacant_elem = 'Is vacant'
+        service_elem = 'In service'
+        terminal_elem = 'Terminal'
+        submit_elem = 'Continue'
+        back_elem = 'Back'
+        logout_elem = 'Logout'
+        self.assertIn(title_elem, page_html)
+        self.assertIn(select_elem, page_html)
+        self.assertIn(id_elem, page_html)
+        self.assertIn(x_elem, page_html)
+        self.assertIn(y_elem, page_html)
+        self.assertIn(vacant_elem, page_html)
+        self.assertIn(service_elem, page_html)
+        self.assertIn(terminal_elem, page_html)
+        self.assertIn(submit_elem, page_html)
+        self.assertIn(back_elem, page_html)
+        self.assertIn(logout_elem, page_html)
+
+    def test_show_flights_vacant_runway(self):
+        """
+        Tests endpoint for showing flights with vacant runways
+        """
+        self.client.post('/showFlights',
+                         data=dict(select="299",
+                                   update="runway",
+                                   vacate="freeRunway"),
+                         follow_redirects=True)
+        page_html = str(self.client.get('/vacantRunways').data)
+        title_elem = 'Available Runways'
+        select_elem = 'Select'
+        runway_elem = 'Runway Number'
+        vacant_elem = 'Is vacant'
+        submit_elem = 'Continue'
+        back_elem = 'Back'
+        logout_elem = 'Logout'
+        self.assertIn(title_elem, page_html)
+        self.assertIn(select_elem, page_html)
+        self.assertIn(runway_elem, page_html)
+        self.assertIn(vacant_elem, page_html)
+        self.assertIn(submit_elem, page_html)
+        self.assertIn(back_elem, page_html)
+        self.assertIn(logout_elem, page_html)
+
     def test_occupied_gates(self):
         """
         Tests endpoint for occupied gates
@@ -308,7 +473,7 @@ class TestEndpoints(unittest.TestCase):
 
     def test_occupied_runways(self):
         """
-        Tests endpoint for occupied gates
+        Tests endpoint for occupied runways
         """
         self.client.post('/occupiedRunways',
                          data=dict(select="1"),
@@ -372,59 +537,150 @@ class TestEndpoints(unittest.TestCase):
         self.assertIn(back_elem, page_html)
         self.assertIn(logout_elem, page_html)
 
-    def test_register_admin(self):
+    def test_vacate_runway(self):
         """
-        Tests registering Admins
+        Tests vacating a runway
         """
-        page_html = str(self.client.get('/registerAdmin').data)
-        username_elem = 'Username'
-        password_elem = 'Password'
-        first_name_elem = 'First Name'
-        last_name_elem = 'Last Name'
-        email_elem = 'Email'
-        phone_number_elem = 'Phone No.'
-        self.assertIn(username_elem, page_html)
-        self.assertIn(password_elem, page_html)
-        self.assertIn(first_name_elem, page_html)
-        self.assertIn(last_name_elem, page_html)
-        self.assertIn(email_elem, page_html)
-        self.assertIn(phone_number_elem, page_html)
+        self.client.post('/vacateRunway',
+                         data=dict(select="3"),
+                         follow_redirects=True)
+        page_html = str(self.client.get('/getFlights').data)
+        title_elem = 'All Scheduled Flights'
+        select_elem = 'Select'
+        id_elem = 'ID'
+        atime_elem = 'Arrival Time'
+        dtime_elem = 'Departure Time'
+        dloc_elem = 'Departure Location'
+        aloc_elem = 'Arrival Location'
+        plane_elem = 'Airplane ID'
+        gate_elem = 'Gate Number'
+        runway_elem = 'Runway Number'
+        updateg_elem = 'Update Gate'
+        updater_elem = 'Update Runway'
+        freeg_elem = 'Free Up Gate'
+        freer_elem = 'Free Up Runway'
+        submit_elem = 'Continue'
+        back_elem = 'Back'
+        logout_elem = 'Logout'
+        self.assertIn(title_elem, page_html)
+        self.assertIn(select_elem, page_html)
+        self.assertIn(id_elem, page_html)
+        self.assertIn(atime_elem, page_html)
+        self.assertIn(dtime_elem, page_html)
+        self.assertIn(dloc_elem, page_html)
+        self.assertIn(aloc_elem, page_html)
+        self.assertIn(plane_elem, page_html)
+        self.assertIn(gate_elem, page_html)
+        self.assertIn(runway_elem, page_html)
+        self.assertIn(updateg_elem, page_html)
+        self.assertIn(updater_elem, page_html)
+        self.assertIn(freeg_elem, page_html)
+        self.assertIn(freer_elem, page_html)
+        self.assertIn(submit_elem, page_html)
+        self.assertIn(back_elem, page_html)
+        self.assertIn(logout_elem, page_html)
 
-    def test_register_atc(self):
+    def test_vacant_gates(self):
         """
-        Tests registering Air Traffic Controllers
+        Tests vacant gates
         """
-        page_html = str(self.client.get('/registerAtc').data)
-        username_elem = 'Username'
-        password_elem = 'Password'
-        first_name_elem = 'First Name'
-        last_name_elem = 'Last Name'
-        email_elem = 'Email'
-        phone_number_elem = 'Phone No.'
-        self.assertIn(username_elem, page_html)
-        self.assertIn(password_elem, page_html)
-        self.assertIn(first_name_elem, page_html)
-        self.assertIn(last_name_elem, page_html)
-        self.assertIn(email_elem, page_html)
-        self.assertIn(phone_number_elem, page_html)
+        page_html = str(self.client.get('/vacantGates').data)
+        title_elem = 'Available Gates'
+        select_elem = 'Select'
+        id_elem = 'ID'
+        x_elem = 'X_coord'
+        y_elem = 'Y_coord'
+        vacant_elem = 'Is vacant'
+        service_elem = 'In service'
+        terminal_elem = 'Terminal'
+        submit_elem = 'Continue'
+        back_elem = 'Back'
+        logout_elem = 'Logout'
+        self.assertIn(title_elem, page_html)
+        self.assertIn(select_elem, page_html)
+        self.assertIn(id_elem, page_html)
+        self.assertIn(x_elem, page_html)
+        self.assertIn(y_elem, page_html)
+        self.assertIn(vacant_elem, page_html)
+        self.assertIn(service_elem, page_html)
+        self.assertIn(terminal_elem, page_html)
+        self.assertIn(submit_elem, page_html)
+        self.assertIn(back_elem, page_html)
+        self.assertIn(logout_elem, page_html)
 
-    def test_register_pilot(self):
+    def test_vacant_runways(self):
         """
-        Tests registering Pilots
+        Tests vacant runways
         """
-        page_html = str(self.client.get('/registerPilot').data)
-        username_elem = 'Username'
-        password_elem = 'Password'
-        first_name_elem = 'First Name'
-        last_name_elem = 'Last Name'
-        email_elem = 'Email'
-        phone_number_elem = 'Phone No.'
-        self.assertIn(username_elem, page_html)
-        self.assertIn(password_elem, page_html)
-        self.assertIn(first_name_elem, page_html)
-        self.assertIn(last_name_elem, page_html)
-        self.assertIn(email_elem, page_html)
-        self.assertIn(phone_number_elem, page_html)
+        self.client.post('/vacantRunways',
+                         data=dict(select="3"),
+                         follow_redirects=True)
+        page_html = str(self.client.get('/vacantRunways').data)
+        title_elem = 'Available Runways'
+        select_elem = 'Select'
+        runway_elem = 'Runway Number'
+        vacant_elem = 'Is vacant'
+        submit_elem = 'Continue'
+        back_elem = 'Back'
+        logout_elem = 'Logout'
+        self.assertIn(title_elem, page_html)
+        self.assertIn(select_elem, page_html)
+        self.assertIn(runway_elem, page_html)
+        self.assertIn(vacant_elem, page_html)
+        self.assertIn(submit_elem, page_html)
+        self.assertIn(back_elem, page_html)
+        self.assertIn(logout_elem, page_html)
+
+#     def test_change_gate(self):
+#         """
+#         Tests changing gates
+#         """
+#         self.client.post('/changeGate',
+#                          data=dict(select="6"),
+#                          follow_redirects=True)
+#         page_html = str(self.client.get('/getFlights').data)
+#         title_elem = 'All Scheduled Flights'
+#         select_elem = 'Select'
+#         id_elem = 'ID'
+#         atime_elem = 'Arrival Time'
+#         dtime_elem = 'Departure Time'
+#         dloc_elem = 'Departure Location'
+#         aloc_elem = 'Arrival Location'
+#         plane_elem = 'Airplane ID'
+#         gate_elem = 'Gate Number'
+#         runway_elem = 'Runway Number'
+#         updateg_elem = 'Update Gate'
+#         updater_elem = 'Update Runway'
+#         freeg_elem = 'Free Up Gate'
+#         freer_elem = 'Free Up Runway'
+#         submit_elem = 'Continue'
+#         back_elem = 'Back'
+#         logout_elem = 'Logout'
+#         self.assertIn(title_elem, page_html)
+#         self.assertIn(select_elem, page_html)
+#         self.assertIn(id_elem, page_html)
+#         self.assertIn(atime_elem, page_html)
+#         self.assertIn(dtime_elem, page_html)
+#         self.assertIn(dloc_elem, page_html)
+#         self.assertIn(aloc_elem, page_html)
+#         self.assertIn(plane_elem, page_html)
+#         self.assertIn(gate_elem, page_html)
+#         self.assertIn(runway_elem, page_html)
+#         self.assertIn(updateg_elem, page_html)
+#         self.assertIn(updater_elem, page_html)
+#         self.assertIn(freeg_elem, page_html)
+#         self.assertIn(freer_elem, page_html)
+#         self.assertIn(submit_elem, page_html)
+#         self.assertIn(back_elem, page_html)
+#         self.assertIn(logout_elem, page_html)
+
+#     def test_logout(self):
+#         """
+#         Tests logout
+#         """
+#         page_html = str(self.client.get('/logout').data)
+#         login_elem = 'Login'
+#         self.assertIn(login_elem, page_html)
 
 
 if __name__ == "__main__":
