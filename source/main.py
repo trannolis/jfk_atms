@@ -241,7 +241,7 @@ def removeUser():
     """removes the user from the either atc, admin, or atc database"""
     role = session.get('role', None)  # gets role of the person being deleted
     delete_user = request.form.get('user')  # user to be deleted
-    mongo.db[str(role)].remove({"username": str(delete_user)})
+    mongo.db[str(role)].delete_one({"username": str(delete_user)})
     return render_template('successfulDeletion.html', user=delete_user)
 
 
