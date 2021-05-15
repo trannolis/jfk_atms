@@ -278,6 +278,34 @@ class TestEndpoints(unittest.TestCase):
         self.assertIn(back_elem, page_html)
         self.assertIn(logout_elem, page_html)
 
+    def test_occupied_gates(self):
+        """
+        Tests endpoint for occupied gates
+        """
+        page_html = str(self.client.get('/occupiedGates').data)
+        title_elem = 'Occupied Gates'
+        select_elem = 'Select'
+        id_elem = 'ID'
+        x_elem = 'X_coord'
+        y_elem = 'Y_coord'
+        vacant_elem = 'Is vacant'
+        service_elem = 'In service'
+        terminal_elem = 'Terminal'
+        submit_elem = 'Continue'
+        back_elem = 'Back'
+        logout_elem = 'Logout'
+        self.assertIn(title_elem, page_html)
+        self.assertIn(select_elem, page_html)
+        self.assertIn(id_elem, page_html)
+        self.assertIn(x_elem, page_html)
+        self.assertIn(y_elem, page_html)
+        self.assertIn(vacant_elem, page_html)
+        self.assertIn(service_elem, page_html)
+        self.assertIn(terminal_elem, page_html)
+        self.assertIn(submit_elem, page_html)
+        self.assertIn(back_elem, page_html)
+        self.assertIn(logout_elem, page_html)
+
     def test_register_admin(self):
         """
         Tests registering Admins
