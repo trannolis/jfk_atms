@@ -418,7 +418,6 @@ class TestEndpoints(unittest.TestCase):
         self.assertIn(back_elem, page_html)
         self.assertIn(logout_elem, page_html)
 
-
     def test_occupied_gates(self):
         """
         Tests endpoint for occupied gates
