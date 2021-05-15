@@ -160,9 +160,9 @@ class TestEndpoints(unittest.TestCase):
         back_elem = 'Go back'
         self.assertIn(back_elem, page_html)
 
-    def test_select_user(self):
+    def test_select_admins(self):
         """
-        Tests endpoint for selecting users
+        Tests endpoint for selecting admins
         """
         self.client.post('/selectUser',
                          data=dict(role="admin"),
@@ -171,7 +171,7 @@ class TestEndpoints(unittest.TestCase):
         query_elem = 'Please select the role of the user you want to delete'
         admin_elem = 'Admin'
         atc_elem = 'ATC'
-        pilot_elem = 'pilot'
+        pilot_elem = 'Pilot'
         submit_elem = 'Continue'
         back_elem = 'Go back'
         self.assertIn(query_elem, page_html)
@@ -181,21 +181,47 @@ class TestEndpoints(unittest.TestCase):
         self.assertIn(submit_elem, page_html)
         self.assertIn(back_elem, page_html)
 
-#     def test_select_pilot(self):
-#         """
-#         Tests endpoint for selecting pilots
-#         """
-#         self.client.post('/selectUser',
-#                          data=dict(role="pilot"),
-#                          follow_redirects=True)
+    def test_select_pilot(self):
+        """
+        Tests endpoint for selecting pilots
+        """
+        self.client.post('/selectUser',
+                         data=dict(role="pilot"),
+                         follow_redirects=True)
+        page_html = str(self.client.get('/showUser').data)
+        query_elem = 'Please select the role of the user you want to delete'
+        admin_elem = 'Admin'
+        atc_elem = 'ATC'
+        pilot_elem = 'Pilot'
+        submit_elem = 'Continue'
+        back_elem = 'Go back'
+        self.assertIn(query_elem, page_html)
+        self.assertIn(admin_elem, page_html)
+        self.assertIn(atc_elem, page_html)
+        self.assertIn(pilot_elem, page_html)
+        self.assertIn(submit_elem, page_html)
+        self.assertIn(back_elem, page_html)
 
-#     def test_select_atc(self):
-#         """
-#         Tests endpoint for selecting atcs
-#         """
-#         self.client.post('/selectUser',
-#                          data=dict(role="atc"),
-#                          follow_redirects=True)
+    def test_select_atc(self):
+        """
+        Tests endpoint for selecting atcs
+        """
+        self.client.post('/selectUser',
+                         data=dict(role="atc"),
+                         follow_redirects=True)
+                page_html = str(self.client.get('/showUser').data)
+        query_elem = 'Please select the role of the user you want to delete'
+        admin_elem = 'Admin'
+        atc_elem = 'ATC'
+        pilot_elem = 'Pilot'
+        submit_elem = 'Continue'
+        back_elem = 'Go back'
+        self.assertIn(query_elem, page_html)
+        self.assertIn(admin_elem, page_html)
+        self.assertIn(atc_elem, page_html)
+        self.assertIn(pilot_elem, page_html)
+        self.assertIn(submit_elem, page_html)
+        self.assertIn(back_elem, page_html)
 
     def test_register_admin(self):
         """
