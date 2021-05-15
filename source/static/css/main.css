@@ -1,5 +1,5 @@
 body {
-  background-image: url( images/backdrop.png );
+  background-image: url( "images/backdrop.png" );
   font-family: Helvetica, Arial, sans-serif;
   color: black;
 }
