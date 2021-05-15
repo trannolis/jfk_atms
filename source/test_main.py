@@ -223,8 +223,7 @@ class TestEndpoints(unittest.TestCase):
         self.client.post('/adminHome',
                          data=dict(username="admin"),
                          follow_redirects=True)
-        page_html = str(self.client.get('/adminHome').data)
-        print(page_html)
+#         page_html = str(self.client.get('/adminHome').data)
 #         reg_atc_elem = 'Register a new Air Traffic Controller'
 #         reg_pilot_elem = 'Register a new Pilot'
 #         user_elem = 'Delete an existing user'
@@ -255,7 +254,17 @@ class TestEndpoints(unittest.TestCase):
         Tests showUser endpoint
         """
         page_html = str(self.client.get('/showUser').data)
+        title_elem = 'Please select the role of the user you want to delete'
+        admin_elem = 'Admin'
+        atc_elem = 'ATC'
+        pilot_elem = 'Pilot'
+        submit_elem = 'Continue'
         back_elem = 'Go back'
+        self.assertIn(title_elem, page_html)
+        self.assertIn(admin_elem, page_html)
+        self.assertIn(atc_elem, page_html)
+        self.assertIn(pilot_elem, page_html)
+        self.assertIn(submit_elem, page_html)
         self.assertIn(back_elem, page_html)
 
     def test_select_admins(self):
