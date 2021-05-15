@@ -567,10 +567,7 @@ class TestEndpoints(unittest.TestCase):
         """
         Tests logout
         """
-        self.post.client('/logout',
-                         data=dict(username="admin"),
-                         follow_redirects=True)
-        page_html = str(self.client.get('/').data)
+        page_html = str(self.client.get('/logout').data)
         login_elem = 'Login'
         self.assertIn(login_elem, page_html)
 
