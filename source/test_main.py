@@ -394,7 +394,7 @@ class TestEndpoints(unittest.TestCase):
                                    update="gate",
                                    vacate="freeGate"),
                          follow_redirects=True)
-        page_html = str(self.client.get('/vacantGates').data)
+        page_html = str(self.client.get('/showFlights').data)
         print(page_html)
 
     def test_occupied_gates(self):
