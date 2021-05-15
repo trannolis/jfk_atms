@@ -37,7 +37,7 @@ class TestEndpoints(unittest.TestCase):
 
     def test_login_pilot(self):
         """
-        Tests the ability of an admin to login
+        Tests the ability of an pilot to login
         """
         self.client.post('/loginAuth',
                          data=dict(username="pilot",
@@ -47,7 +47,7 @@ class TestEndpoints(unittest.TestCase):
 
     def test_login_atc(self):
         """
-        Tests the ability of an admin to login
+        Tests the ability of an atc to login
         """
         self.client.post('/loginAuth',
                          data=dict(username="atc",
@@ -71,27 +71,27 @@ class TestEndpoints(unittest.TestCase):
                          data=dict(role="pilot"),
                          follow_redirects=True)
 
-#     def test_register_auth_admin(self):
-#         """
-#         Tests successful admin registering authentication
-#         """
-#         self.client.post('/registerAdminAuth',
-#                          data=dict(username="testUsername",
-#                                    password="testPassword",
-#                                    first_name="testName",
-#                                    last_name="testSurname",
-#                                    email="test@nyu.edu",
-#                                    phone_no="testNum"),
-#                          follow_redirects=True)
-#         page_html = str(self.client.get('/registerAdminAuth').data)
-#         reg_atc_elem = 'Register a new Air Traffic Controller'
-#         reg_pilot_elem = 'Register a new Pilot'
-#         user_elem = 'Delete an existing user'
-#         logout_elem = 'Logout'
-#         self.assertIn(reg_atc_elem, page_html)
-#         self.assertIn(reg_pilot_elem, page_html)
-#         self.assertIn(user_elem, page_html)
-#         self.assertIn(logout_elem, page_html)
+    def test_register_auth_admin(self):
+        """
+        Tests successful admin registering authentication
+        """
+        self.client.post('/registerAdminAuth',
+                         data=dict(username="testUsername",
+                                   password="testPassword",
+                                   first_name="testName",
+                                   last_name="testSurname",
+                                   email="test@nyu.edu",
+                                   phone_no="testNum"),
+                         follow_redirects=True)
+        page_html = str(self.client.get('/registerAdminAuth').data)
+        reg_atc_elem = 'Register a new Air Traffic Controller'
+        reg_pilot_elem = 'Register a new Pilot'
+        user_elem = 'Delete an existing user'
+        logout_elem = 'Logout'
+        self.assertIn(reg_atc_elem, page_html)
+        self.assertIn(reg_pilot_elem, page_html)
+        self.assertIn(user_elem, page_html)
+        self.assertIn(logout_elem, page_html)
 
 #     def test_admin_home(self):
 #         """
