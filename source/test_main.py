@@ -502,7 +502,7 @@ class TestEndpoints(unittest.TestCase):
         Tests vacant runways
         """
         self.client.post('/vacantRunways',
-                         data = dict(select="3"),
+                         data=dict(select="3"),
                          follow_redirects=True)
         page_html = str(self.client.get('/vacantRunways').data)
         title_elem = 'Available Runways'
