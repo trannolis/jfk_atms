@@ -192,7 +192,7 @@ class TestEndpoints(unittest.TestCase):
 
     def test_pilot_home(self):
         """
-        Tests endpoint for admin home page
+        Tests endpoint for pilot home page
         """
         self.client.post('/pilotHome',
                          data=dict(username="pilot"),
@@ -200,7 +200,7 @@ class TestEndpoints(unittest.TestCase):
 
     def test_atc_home(self):
         """
-        Tests endpoint for admin home page
+        Tests endpoint for atc home page
         """
         self.client.post('/atcHome',
                          data=dict(username="atc"),
@@ -362,7 +362,7 @@ class TestEndpoints(unittest.TestCase):
 
     def test_occupied_runways(self):
         """
-        Tests endpoint for occupied gates
+        Tests endpoint for occupied runways
         """
         self.client.post('/occupiedRunways',
                          data=dict(select="1"),
@@ -389,6 +389,49 @@ class TestEndpoints(unittest.TestCase):
         """
         self.client.post('/vacateGate',
                          data=dict(select="6"),
+                         follow_redirects=True)
+        page_html = str(self.client.get('/getFlights').data)
+        title_elem = 'All Scheduled Flights'
+        select_elem = 'Select'
+        id_elem = 'ID'
+        atime_elem = 'Arrival Time'
+        dtime_elem = 'Departure Time'
+        dloc_elem = 'Departure Location'
+        aloc_elem = 'Arrival Location'
+        plane_elem = 'Airplane ID'
+        gate_elem = 'Gate Number'
+        runway_elem = 'Runway Number'
+        updateg_elem = 'Update Gate'
+        updater_elem = 'Update Runway'
+        freeg_elem = 'Free Up Gate'
+        freer_elem = 'Free Up Runway'
+        submit_elem = 'Continue'
+        back_elem = 'Back'
+        logout_elem = 'Logout'
+        self.assertIn(title_elem, page_html)
+        self.assertIn(select_elem, page_html)
+        self.assertIn(id_elem, page_html)
+        self.assertIn(atime_elem, page_html)
+        self.assertIn(dtime_elem, page_html)
+        self.assertIn(dloc_elem, page_html)
+        self.assertIn(aloc_elem, page_html)
+        self.assertIn(plane_elem, page_html)
+        self.assertIn(gate_elem, page_html)
+        self.assertIn(runway_elem, page_html)
+        self.assertIn(updateg_elem, page_html)
+        self.assertIn(updater_elem, page_html)
+        self.assertIn(freeg_elem, page_html)
+        self.assertIn(freer_elem, page_html)
+        self.assertIn(submit_elem, page_html)
+        self.assertIn(back_elem, page_html)
+        self.assertIn(logout_elem, page_html)
+
+    def test_vacate_runway(self):
+        """
+        Tests vacating a runway
+        """
+        self.client.post('/vacateRunway',
+                         data=dict(select="3"),
                          follow_redirects=True)
         page_html = str(self.client.get('/getFlights').data)
         title_elem = 'All Scheduled Flights'
