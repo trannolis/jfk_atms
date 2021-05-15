@@ -30,6 +30,7 @@ def registerAdmin():
 # Authenticates the login for users
 @main.route('/loginAuth', methods=['GET', 'POST'])
 def loginAuth():
+    """Creates a session for a valid user"""
     # grabs information from the forms
     username_input = request.form['username']
     password_input = request.form['password']
@@ -51,6 +52,7 @@ def loginAuth():
 
 @main.route('/register', methods=['GET', 'POST'])
 def register():
+    """Redirects to either Pilot or ATC registration pages"""
     role = request.form['role']
     if role == 'pilot':
         return redirect(url_for('main.registerPilot'))
@@ -59,18 +61,22 @@ def register():
 
 @main.route('/registerPilot', methods=['GET', 'POST'])
 def registerPilot():
+    """Renders Pilot Registration Page"""
     return render_template('registerPilot.html')
 
 
 @main.route('/registerAtc', methods=['GET', 'POST'])
 def registerAtc():
+    """Renders ATC Registration Page"""
     return render_template('registerAtc.html')
 
 
 # Authenticates the registration for new admins
 @main.route('/registerAdminAuth', methods=['GET', 'POST'])
 def registerAdminAuth():
-    # grabs information from the forms
+    """Adds checks for existing Admin user and adds new Admin
+                                          User to Database"""
+
     username = request.form['username']
     password = request.form['password']
     first_name = request.form['first_name']
@@ -97,7 +103,8 @@ def registerAdminAuth():
 
 @main.route('/registerAtcAuth', methods=['GET', 'POST'])
 def registerAtcAuth():
-    # grabs information from the forms
+    """Adds checks for existing Admin user and adds new ATC
+                                          User to Database"""
 
     username = request.form['username']
     password = request.form['password']
@@ -124,7 +131,8 @@ def registerAtcAuth():
 # Authenticates the registration for new pilots
 @main.route('/registerPilotAuth', methods=['GET', 'POST'])
 def registerPilotAuth():
-    # grabs information from the forms
+    """Adds checks for existing Admin user and adds new Pilot
+                                          User to Database"""
     username = request.form['username']
     password = request.form['password']
     first_name = request.form['first_name']
@@ -170,6 +178,7 @@ def registerPilotAuth():
 
 @main.route('/adminHome')
 def adminHome():
+    """Renders Admin User's Home page"""
     user = session['username']
     return render_template('adminHome.html', username=user)
 
@@ -213,11 +222,13 @@ def atcHome():
 
 @main.route('/showUser', methods=['GET', 'POST'])
 def showUser():
+    """This method renders the show users page"""
     return render_template('showUser.html')
 
 
 @main.route('/selectUser', methods=['GET', 'POST'])
 def selectUser():
+    """This method gets all ATCs, Admins, and Pilots"""
     role = request.form.get("role")
     session['role'] = role
     if role == 'atc':
@@ -238,7 +249,8 @@ def selectUser():
 
 @main.route('/removeUser', methods=['GET', 'POST'])
 def removeUser():
-    """removes the user from the either atc, admin, or atc database"""
+    """This methid removes the user from the either atc, admin, or atc
+                                                           database"""
     role = session.get('role', None)  # gets role of the person being deleted
     delete_user = request.form.get('user')  # user to be deleted
     mongo.db[str(role)].delete_one({"username": str(delete_user)})
@@ -255,6 +267,8 @@ def getFlights():
 
 @main.route('/showFlights', methods=["GET", "POST"])
 def showFlights():
+    """This method gets all flights from the database"""
+
     # flights = mongo.db['flight'].find()
     # flights_arr = [flight for flight in flights]
     flight_id = request.form.get("select")
@@ -380,11 +394,13 @@ def changeRunway():
 
 @main.route('/logout')
 def logout():
+    """This method redirects to the landing page"""
     session.pop('username')
     return redirect('/')
 
 
 def calculateGate(flightId):
+    """This method calculates distance from gate to runway"""
     runway = mongo.db['runway'].find_one({'is_vacant': True})
     if not runway:
         mongo.db['queue'].insert_one({'_id': flightId,
