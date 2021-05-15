@@ -19,3 +19,8 @@ deploy:
   app: jfkatms
   true: main
 
+services:
+  - mongodb
+  
+before_script:
+  - mongo atms --eval 'db.createUser({user:"travis",pwd:"test",roles:["readWrite"]});'
