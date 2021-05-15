@@ -242,7 +242,7 @@ class TestEndpoints(unittest.TestCase):
         """
         Tests retrieving flights
         """
-        page_html = str(self.clint.get('/getFlights').data)
+        page_html = str(self.client.get('/getFlights').data)
         title_elem = 'All Scheduled Flights'
         select_elem = 'Select'
         id_elem = 'ID'
