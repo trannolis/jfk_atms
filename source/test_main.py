@@ -561,7 +561,7 @@ class TestEndpoints(unittest.TestCase):
         self.assertIn(freer_elem, page_html)
         self.assertIn(submit_elem, page_html)
         self.assertIn(back_elem, page_html)
-        self.assertIn(logout_elem, page_html)        
+        self.assertIn(logout_elem, page_html)
 
 
 if __name__ == "__main__":
