@@ -34,7 +34,26 @@ class TestEndpoints(unittest.TestCase):
                                    password="test",
                                    role="admin"),
                          follow_redirects=True)
-        page_html = str(self.client.get('/loginAuth').data)
+
+    def test_login_pilot(self):
+        """
+        Tests the ability of an admin to login
+        """
+        self.client.post('/loginAuth',
+                         data=dict(username="pilot",
+                                   password="test",
+                                   role="pilot"),
+                         follow_redirects=True)
+
+    def test_login_atc(self):
+        """
+        Tests the ability of an admin to login
+        """
+        self.client.post('/loginAuth',
+                         data=dict(username="atc",
+                                   password="test",
+                                   role="atc"),
+                         follow_redirects=True)
 
     def test_register_redirect_atc(self):
         """
