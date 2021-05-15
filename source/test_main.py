@@ -93,6 +93,32 @@ class TestEndpoints(unittest.TestCase):
 #         self.assertIn(user_elem, page_html)
 #         self.assertIn(logout_elem, page_html)
 
+    def test_register_auth_pilot(self):
+        """
+        Tests successful pilot registering authentication
+        """
+        self.client.post('/registerPilotAuth',
+                         data=dict(username="testUsername",
+                                   password="testPassword",
+                                   first_name="testName",
+                                   last_name="testSurname",
+                                   email="test@nyu.edu",
+                                   phone_no="testNum"),
+                         follow_redirects=True)
+
+    def test_register_auth_atc(self):
+        """
+        Tests successful atc registering authentication
+        """
+        self.client.post('/registerAtcAuth',
+                         data=dict(username="testUsername",
+                                   password="testPassword",
+                                   first_name="testName",
+                                   last_name="testSurname",
+                                   email="test@nyu.edu",
+                                   phone_no="testNum"),
+                         follow_redirects=True)
+
 #     def test_admin_home(self):
 #         """
 #         Tests endpoint for admin home page
