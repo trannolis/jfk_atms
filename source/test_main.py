@@ -385,6 +385,18 @@ class TestEndpoints(unittest.TestCase):
         self.assertIn(back_elem, page_html)
         self.assertIn(logout_elem, page_html)
 
+    def test_show_flights_vacant_gate(self):
+        """
+        Tests endpoint for showing flights with vacant gates
+        """
+        self.client.post('/showFlights',
+                         data=dict(select="299",
+                                   update="gate",
+                                   vacate="freeGate")
+                         follow_redirects=True)
+        page_html = str(self.client.get('/vacantGates').data)
+        print(page_html)
+
     def test_occupied_gates(self):
         """
         Tests endpoint for occupied gates
