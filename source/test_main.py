@@ -160,32 +160,42 @@ class TestEndpoints(unittest.TestCase):
         back_elem = 'Go back'
         self.assertIn(back_elem, page_html)
 
-    def test_select_admin(self):
+    def test_select_user(self):
         """
-        Tests endpoint for selecting admins
+        Tests endpoint for selecting users
         """
         self.client.post('/selectUser',
                          data=dict(role="admin"),
                          follow_redirects=True)
         page_html = str(self.client.get('/showUser').data)
-        del_elem = 'Delete User'
-        self.assertIn(del_elem, page_html)
+        query_elem = 'Please select the role of the user you want to delete'
+        admin_elem = 'Admin'
+        atc_elem = 'ATC'
+        pilot_elem = 'pilot'
+        submit_elem = 'Continue'
+        back_elem = 'Go back'
+        self.assertIn(query_elem, page_html)
+        self.assertIn(admin_elem, page_html)
+        self.assertIn(atc_elem, page_html)
+        self.assertIn(pilot_elem, page_html)
+        self.assertIn(submit_elem, page_html)
+        self.assertIn(back_elem, page_html)
 
-    def test_select_pilot(self):
-        """
-        Tests endpoint for selecting pilots
-        """
-        self.client.post('/selectUser',
-                         data=dict(role="pilot"),
-                         follow_redirects=True)
+#     def test_select_pilot(self):
+#         """
+#         Tests endpoint for selecting pilots
+#         """
+#         self.client.post('/selectUser',
+#                          data=dict(role="pilot"),
+#                          follow_redirects=True)
 
-    def test_select_atc(self):
-        """
-        Tests endpoint for selecting atcs
-        """
-        self.client.post('/selectUser',
-                         data=dict(role="atc"),
-                         follow_redirects=True)
+#     def test_select_atc(self):
+#         """
+#         Tests endpoint for selecting atcs
+#         """
+#         self.client.post('/selectUser',
+#                          data=dict(role="atc"),
+#                          follow_redirects=True)
 
     def test_register_admin(self):
         """
