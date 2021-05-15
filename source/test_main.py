@@ -72,8 +72,9 @@ class TestEndpoints(unittest.TestCase):
                                    password="test",
                                    role="admin"),
                          follow_redirects=True)
-        page_html = str(self.client.get('/loginAuth').data)
-        print(page_html)
+
+#         page_html = str(self.client.get('/loginAuth').data)
+#         print(page_html)
 
     def test_login_pilot(self):
         """
@@ -102,6 +103,9 @@ class TestEndpoints(unittest.TestCase):
         self.client.post('/register',
                          data=dict(role="atc"),
                          follow_redirects=True)
+        page_html = str(self.client.get('/register').data)
+        print("Test 1")
+        print(page_html)
 
     def test_register_redirect_pilot(self):
         """
@@ -110,6 +114,9 @@ class TestEndpoints(unittest.TestCase):
         self.client.post('/register',
                          data=dict(role="pilot"),
                          follow_redirects=True)
+        page_html = str(self.client.get('/register').data)
+        print("Test 2")
+        print(page_html)
 
     def test_register_atc(self):
         """
