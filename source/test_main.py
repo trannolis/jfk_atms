@@ -103,7 +103,7 @@ class TestEndpoints(unittest.TestCase):
         self.client.post('/register',
                          data=dict(role="atc"),
                          follow_redirects=True)
-        page_html = str(self.client.get('/register').data)
+        page_html = str(self.client.get('/registerAtc').data)
         print("Test 1")
         print(page_html)
 
@@ -114,7 +114,7 @@ class TestEndpoints(unittest.TestCase):
         self.client.post('/register',
                          data=dict(role="pilot"),
                          follow_redirects=True)
-        page_html = str(self.client.get('/register').data)
+        page_html = str(self.client.get('/registerPilot').data)
         print("Test 2")
         print(page_html)
 
