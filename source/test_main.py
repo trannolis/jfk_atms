@@ -119,13 +119,13 @@ class TestEndpoints(unittest.TestCase):
                                    phone_no="testNum"),
                          follow_redirects=True)
 
-#     def test_admin_home(self):
-#         """
-#         Tests endpoint for admin home page
-#         """
-#         self.client.post('/adminHome',
-#                          data=dict(username="testAdmin"),
-#                          follow_redirects=False)
+    def test_admin_home(self):
+        """
+        Tests endpoint for admin home page
+        """
+        self.client.post('/adminHome',
+                         data=dict(username="admin"),
+                         follow_redirects=False)
 #         page_html = str(self.client.get('adminHome').data)
 #         reg_atc_elem = 'Register a new Air Traffic Controller'
 #         reg_pilot_elem = 'Register a new Pilot'
