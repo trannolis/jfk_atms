@@ -209,7 +209,7 @@ class TestEndpoints(unittest.TestCase):
         self.client.post('/selectUser',
                          data=dict(role="atc"),
                          follow_redirects=True)
-                page_html = str(self.client.get('/showUser').data)
+        page_html = str(self.client.get('/showUser').data)
         query_elem = 'Please select the role of the user you want to delete'
         admin_elem = 'Admin'
         atc_elem = 'ATC'
