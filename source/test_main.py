@@ -418,6 +418,31 @@ class TestEndpoints(unittest.TestCase):
         self.assertIn(back_elem, page_html)
         self.assertIn(logout_elem, page_html)
 
+    def test_show_flights_vacant_runway(self):
+        """
+        Tests endpoint for showing flights with vacant runways
+        """
+        self.client.post('/showFlights',
+                         data=dict(select="299",
+                                   update="runway",
+                                   vacate="freeRunway"),
+                         follow_redirects=True)
+        page_html = str(self.client.get('/vacantRunways').data)
+        title_elem = 'Available Runways'
+        select_elem = 'Select'
+        runway_elem = 'Runway Number'
+        vacant_elem = 'Is vacant'
+        submit_elem = 'Continue'
+        back_elem = 'Back'
+        logout_elem = 'Logout'
+        self.assertIn(title_elem, page_html)
+        self.assertIn(select_elem, page_html)
+        self.assertIn(runway_elem, page_html)
+        self.assertIn(vacant_elem, page_html)
+        self.assertIn(submit_elem, page_html)
+        self.assertIn(back_elem, page_html)
+        self.assertIn(logout_elem, page_html)
+
     def test_occupied_gates(self):
         """
         Tests endpoint for occupied gates
