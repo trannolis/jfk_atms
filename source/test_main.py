@@ -160,6 +160,30 @@ class TestEndpoints(unittest.TestCase):
         back_elem = 'Go back'
         self.assertIn(back_elem, page_html)
 
+    def test_select_admin(self):
+        """
+        Tests endpoint for selecting admins
+        """
+        self.client.post('/selectUser',
+                         data=dict(role="admin"),
+                         follow_redirects=True)
+
+    def test_select_pilot(self):
+        """
+        Tests endpoint for selecting pilots
+        """
+        self.client.post('/selectUser',
+                         data=dict(role="pilot"),
+                         follow_redirects=True)
+
+    def test_select_atc(self):
+        """
+        Tests endpoint for selecting atcs
+        """
+        self.client.post('/selectUser',
+                         data=dict(role="atc"),
+                         follow_redirects=True)
+
     def test_register_admin(self):
         """
         Tests registering Admins
