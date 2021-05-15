@@ -563,13 +563,13 @@ class TestEndpoints(unittest.TestCase):
 #         self.assertIn(back_elem, page_html)
 #         self.assertIn(logout_elem, page_html)
 
-    def test_logout(self):
-        """
-        Tests logout
-        """
-        page_html = str(self.client.get('/logout').data)
-        login_elem = 'Login'
-        self.assertIn(login_elem, page_html)
+#     def test_logout(self):
+#         """
+#         Tests logout
+#         """
+#         page_html = str(self.client.get('/logout').data)
+#         login_elem = 'Login'
+#         self.assertIn(login_elem, page_html)
 
 
 if __name__ == "__main__":
