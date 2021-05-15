@@ -22,10 +22,22 @@ class TestEndpoints(unittest.TestCase):
         Tests the "Login" endpoint to for availability of page
         """
         page_html = str(self.client.get('/login').data)
+        query_elem = 'Please select your role:'
+        admin_elem = 'Admin'
+        atc_elem = 'Air Traffic Controller'
+        pilot_elem = 'Pilot'
         username_elem = 'username'
         password_elem = 'password'
+        submit_elem = 'Login'
+        back_elem = 'Go back'
+        self.assertIn(query_elem, page_html)
+        self.assertIn(admin_elem, page_html)
+        self.assertIn(atc_elem, page_html)
+        self.assertIn(pilot_elem, page_html)
         self.assertIn(username_elem, page_html)
         self.assertIn(password_elem, page_html)
+        self.assertIn(submit_elem, page_html)
+        self.assertIn(back_elem, page_html)
 
     def test_register_admin(self):
         """
