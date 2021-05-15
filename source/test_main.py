@@ -125,8 +125,8 @@ class TestEndpoints(unittest.TestCase):
         """
         self.client.post('/adminHome',
                          data=dict(username="admin"),
-                         follow_redirects=False)
-        page_html = str(self.client.get('adminHome').data)
+                         follow_redirects=True)
+        page_html = str(self.client.get('/adminHome').data)
         reg_atc_elem = 'Register a new Air Traffic Controller'
         reg_pilot_elem = 'Register a new Pilot'
         user_elem = 'Delete an existing user'
