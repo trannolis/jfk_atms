@@ -388,7 +388,7 @@ def calculateGate(flightId):
     runway = mongo.db['runway'].find_one({'is_vacant': True})
     if not runway:
         mongo.db['queue'].insert_one({'_id': flightId,
-                                 'waiting_for': 'runway'})
+                                      'waiting_for': 'runway'})
     else:
         runway = runway['_id'], runway['x_coord'], runway['y_coord']
         gates = [(gate['_id'], gate['x_coord'], gate['y_coord']) for gate in
