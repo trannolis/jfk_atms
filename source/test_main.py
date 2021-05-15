@@ -223,6 +223,21 @@ class TestEndpoints(unittest.TestCase):
         self.assertIn(submit_elem, page_html)
         self.assertIn(back_elem, page_html)
 
+    def test_remove_user(self):
+        """
+        Tests removing users
+        """
+        self.client.post('/removeUser',
+                         data=dict(user="admin"),
+                         follow_redirects=True)
+        page_html = str(self.client.get('/removeUser').data)
+        success_elem = 'You have successfully deleted'
+        delete_elem = 'Delete another user'
+        back_elem = 'Go Home'
+        self.assertIn(success_elem,page_html)
+        self.assertIn(delete_elem,page_html)
+        self.assertIn(back_elem,page_html)
+
     def test_register_admin(self):
         """
         Tests registering Admins
