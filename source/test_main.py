@@ -9,10 +9,12 @@ class TestEndpoints(unittest.TestCase):
 
     def test_landing(self):
         """
-        Tests the "Landing" endpoint for admins
+        Tests the '/' endpoint for admins
         """
         page_html = str(self.client.get('/').data)
+        title_elem = 'Welcome to ATMS'
         login_elem = 'Login'
+        self.assertIn(title_elem, page_html)
         self.assertIn(login_elem, page_html)
 
     def test_login_page(self):
