@@ -167,6 +167,9 @@ class TestEndpoints(unittest.TestCase):
         self.client.post('/selectUser',
                          data=dict(role="admin"),
                          follow_redirects=True)
+        page_html = str(self.client.get('/showUser').data)
+        del_elem = 'Delete User'
+        self.assertIn(del_elem, page_html)
 
     def test_select_pilot(self):
         """
