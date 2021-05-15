@@ -1,5 +1,5 @@
 import unittest
-fromt unittest.mock import patch
+from unittest.mock import patch
 from source import create_app
 
 
@@ -222,7 +222,8 @@ class TestEndpoints(unittest.TestCase):
         Tests endpoint for admin home page
         """
         with patch("app.session", dict()) as session:
-            response = self.client.post("/adminHome", data={"username": "admin"})
+            response = self.client.post("/adminHome",
+                                        data={"username": "admin"})
         assert session.get("username") == "admin"
         print(response.data)
 #         self.client.post('/adminHome',
