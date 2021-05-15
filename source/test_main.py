@@ -6,6 +6,8 @@ class TestEndpoints(unittest.TestCase):
     def setUp(self):
         self.app = create_app('source.settings', True)
         self.client = self.app.test_client()
+        with self.app.app_context():
+            db.create_all()
 
     def test_landing(self):
         """
