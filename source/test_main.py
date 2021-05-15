@@ -2,6 +2,7 @@ import unittest
 from source import create_app
 from extensions import mongo
 
+
 class TestEndpoints(unittest.TestCase):
     def setUp(self):
         self.app = create_app('source.settings', True)
