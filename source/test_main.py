@@ -136,6 +136,22 @@ class TestEndpoints(unittest.TestCase):
 #         self.assertIn(user_elem, page_html)
 #         self.assertIn(logout_elem, page_html)
 
+    def test_pilot_home(self):
+        """
+        Tests endpoint for admin home page
+        """
+        self.client.post('/pilotHome',
+                         data=dict(username="pilot"),
+                         follow_redirects=True)
+
+    def test_atc_home(self):
+        """
+        Tests endpoint for admin home page
+        """
+        self.client.post('/atcHome',
+                         data=dict(username="atc"),
+                         follow_redirects=True)
+
     def test_show_user(self):
         """
         Tests showUser endpoint
