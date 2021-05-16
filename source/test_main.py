@@ -101,9 +101,10 @@ class TestEndpoints(unittest.TestCase):
         """
         Tests redirecting to register an atc
         """
-        self.client.post('/register',
-                         data=dict(role="atc"),
-                         follow_redirects=True)
+        response = self.client.post('/register',
+                                    data=dict(role="atc"),
+                                    follow_redirects=False)
+        print(response.status)
 
 #         page_html = str(self.client.get('/registerAtc').data)
 #         print("Test 1")
