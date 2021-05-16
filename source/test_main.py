@@ -97,30 +97,59 @@ class TestEndpoints(unittest.TestCase):
                                    role="atc"),
                          follow_redirects=True)
 
-#     def test_register_redirect_atc(self):
-#         """
-#         Tests redirecting to register an atc
-#         """
-#         response = self.client.post('/register',
-#                                     data=dict(role="atc"),
-#                                     follow_redirects=False)
-#         self.assertEqual(response.status_code, 302)
-#         print(response.location)
-#         page_html = str(self.client.get('/register').data)
-#         print("Test 1")
-#         print(page_html)
+    def test_register_redirect_atc(self):
+        """
+        Tests redirecting to register an atc
+        """
+        self.client.post('/register',
+                         data=dict(role="atc"),
+                         follow_redirects=False)
+        page_html = str(self.client.get('/registerAtc').data)
+        title_elem = 'Register A New Air Traffic Controller'
+        username_elem = 'Username'
+        password_elem = 'Password'
+        first_name_elem = 'First Name'
+        last_name_elem = 'Last Name'
+        email_elem = 'Email'
+        phone_number_elem = 'Phone No.'
+        submit_elem = 'Register'
+        back_elem = 'Go back'
+        self.assertIn(title_elem, page_html)
+        self.assertIn(username_elem, page_html)
+        self.assertIn(password_elem, page_html)
+        self.assertIn(first_name_elem, page_html)
+        self.assertIn(last_name_elem, page_html)
+        self.assertIn(email_elem, page_html)
+        self.assertIn(phone_number_elem, page_html)
+        self.assertIn(submit_elem, page_html)
+        self.assertIn(back_elem, page_html)
 
-#     def test_register_redirect_pilot(self):
-#         """
-#         Tests redirecting to register an pilot
-#         """
-#         self.client.post('/register',
-#                          data=dict(role="pilot"),
-#                          follow_redirects=True)
-
-#         page_html = str(self.client.get('/registerPilot').data)
-#         print("Test 2")
-#         print(page_html)
+    def test_register_redirect_pilot(self):
+        """
+        Tests redirecting to register an pilot
+        """
+        self.client.post('/register',
+                         data=dict(role="pilot"),
+                         follow_redirects=False)
+        page_html = str(self.client.get('/registerPilot').data)
+        title_elem = 'Register A New Pilot'
+        username_elem = 'Username'
+        password_elem = 'Password'
+        first_name_elem = 'First Name'
+        last_name_elem = 'Last Name'
+        email_elem = 'Email'
+        phone_number_elem = 'Phone No.'
+        submit_elem = 'Register'
+        back_elem = 'Go back'
+        self.assertIn(title_elem, page_html)
+        self.assertIn(username_elem, page_html)
+        self.assertIn(password_elem, page_html)
+        self.assertIn(first_name_elem, page_html)
+        self.assertIn(last_name_elem, page_html)
+        self.assertIn(email_elem, page_html)
+        self.assertIn(phone_number_elem, page_html)
+        self.assertIn(submit_elem, page_html)
+        self.assertIn(back_elem, page_html)
 
     def test_register_atc(self):
         """
