@@ -104,7 +104,8 @@ class TestEndpoints(unittest.TestCase):
         response = self.client.post('/register',
                                     data=dict(role="atc"),
                                     follow_redirects=False)
-        print(response.status)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.location, url_for('main.registerAtc', _external=True))
 
 #         page_html = str(self.client.get('/registerAtc').data)
 #         print("Test 1")
