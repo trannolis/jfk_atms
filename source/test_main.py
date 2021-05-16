@@ -106,7 +106,7 @@ class TestEndpoints(unittest.TestCase):
                                     follow_redirects=False)
         self.assertEqual(response.status_code, 302)
         print(response.location)
-        page_html = str(self.client.get('/registerAtc').data)
+        page_html = str(self.client.get('/register').data)
         print("Test 1")
         print(page_html)
 
