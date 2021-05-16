@@ -1,0 +1,26 @@
+<html>
+
+<head>
+    <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+</head>
+
+<h1 style="text-align:center"> Add a new flight</h1>
+<body style="text-align:center">
+<form action="/registerFlight" method="POST">
+	<input type="datetime-local" name = "arrivalTime" placeholder="Arrival Time" required/> </br>
+	<input type="datetime-local" name = "departureTime" placeholder="Departure Time" required/></br>
+	<input type="text" name = "arrivalLocation" placeholder="Arrival Location" required/> </br>
+	<input type="text" name = "departureLocation" placeholder="Departure Location" required/> </br>
+
+	<input type="submit" value = "Add flight" />
+	{% if error %}
+		<p class="error"><strong>Error:</strong> {{error}}</p>
+	{% endif %}
+</form>
+
+<a href="/atcHome">Go back</a>
+
+</body>
+
+
+</html>

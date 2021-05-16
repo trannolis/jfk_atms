@@ -159,7 +159,7 @@ def registerPilotAuth():
 
     # make a flight to correspond with the pilot too - FAKE DATA GENERATION
 
-    td = timedelta(0.69420)
+    td = timedelta(0.54950)
 
     mongo.db.flight.insert_one({
         '_id': newAirplaneID,
@@ -189,7 +189,6 @@ def pilotHome():
     pilot = mongo.db['pilot'].find_one_or_404({'username': username})
     first_name = pilot['firstName']
     airplaneID = pilot['airplaneID']
-    print(airplaneID)
     try:
         flight = mongo.db['flight'].find_one_or_404({'airplaneID':
                                                      int(airplaneID)})
@@ -214,6 +213,31 @@ def atcHome():
                                flights=flights)
     except Exception:
         return render_template('atc_landing.html', firstName=firstName)
+
+
+@main.route('/addFlight', methods=['GET', 'POST'])
+def addFlight():
+    return render_template('add_flight.html')
+
+
+@main.route('/registerFlight', methods=['GET', 'POST'])
+def registerFlight():
+    arrivalTime = request.form['arrivalTime']
+    departureTime = request.form['departureTime']
+    arrivalLocation = request.form['arrivalLocation']
+    departureLocation = request.form['departureLocation']
+    newAirplaneID = random.randint(0, 1000)
+    mongo.db.flight.insert_one({
+        '_id': newAirplaneID,
+        'arrivalTime': arrivalTime,
+        'departureTime': departureTime,
+        'departureLocation': departureLocation,
+        'arrivalLocation': arrivalLocation,
+        'airplaneID': newAirplaneID,
+        'gate': -1,
+        'runway': -1})
+    calculateGate(newAirplaneID)
+    return redirect(url_for('main.atcHome'))
 
 
 @main.route('/showUser', methods=['GET', 'POST'])
@@ -271,6 +295,8 @@ def showFlights():
         return redirect('/vacantGates')
     elif update == 'runway':
         return redirect('/vacantRunways')
+    elif update == 'flight':
+        return redirect('/deleteFlight')
 
 
 @main.route('/occupiedGates', methods=["GET", "POST"])
@@ -374,6 +400,35 @@ def changeRunway():
     mongo.db['runway'].update_one({'_id': int(old_runway)}, {'$set':
                                   {'is_vacant': True}})
     return redirect('/getFlights')
+
+
+@main.route('/deleteFlight', methods=['GET', 'POST'])
+def deleteFlight():
+    """Deletes selected flight and assigns the free runway and gate to
+       any flights that might be waiting to be assigned"""
+    flight_id = session.get("select")
+    flightInfo = mongo.db['flight'].find_one({'_id': flight_id})
+    freeGate = flightInfo['gate']
+    freeRunway = flightInfo['freeRunway']
+    mongo.db['flight'].delete_one({'_id': int(flight_id)})
+    next_flight = mongo.db['queue']\
+        .find_one_and_delete({'waiting_for': 'gate'})
+    if next_flight:
+        mongo.db['flight'].update_one({'_id': int(next_flight['_id'])},
+                                      {'$set': {'gate': freeGate}})
+    else:
+        mongo.db['gate'].update_one({'_id': int(freeGate)}, {'$set':
+                                    {'is_vacant': True}})
+
+    next_flight = mongo.db['queue']\
+        .find_one_and_delete({'waiting_for': 'runway'})
+    if next_flight:
+        mongo.db['flight'].update_one({'_id': int(next_flight['_id'])},
+                                      {'$set': {'runway': freeRunway}})
+    else:
+        mongo.db['runway'].update_one({'_id': int(freeRunway)}, {'$set':
+                                      {'is_vacant': True}})
+    return render_template('/getFlights')
 
 
 @main.route('/logout')
