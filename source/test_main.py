@@ -1,12 +1,12 @@
 import unittest
 from source import create_app
-from flask import session
 
 
 class TestEndpoints(unittest.TestCase):
     def setUp(self):
         self.app = create_app('source.settings', True)
         self.client = self.app.test_client()
+        self.sess = self.client.session_transaction()
 
     def test_landing(self):
         """
@@ -221,12 +221,9 @@ class TestEndpoints(unittest.TestCase):
         """
         Tests endpoint for admin home page
         """
-        with self.client as c:
-            rv = c.get('/adminHome')
-            assert flask.session['username'] == "admin"
-#         self.client.post('/adminHome',
-#                          data=dict(username="admin"),
-#                          follow_redirects=True)
+        self.client.post('/adminHome',
+                         data=dict(username="admin"),
+                         follow_redirects=True)
 #         page_html = str(self.client.get('/adminHome').data)
 #         reg_atc_elem = 'Register a new Air Traffic Controller'
 #         reg_pilot_elem = 'Register a new Pilot'
