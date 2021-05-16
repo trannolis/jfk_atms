@@ -1,6 +1,6 @@
 import unittest
-from unittest.mock import patch
 from source import create_app
+from flask import session
 
 
 class TestEndpoints(unittest.TestCase):
@@ -221,11 +221,9 @@ class TestEndpoints(unittest.TestCase):
         """
         Tests endpoint for admin home page
         """
-        with patch("self.app.session", dict()) as session:
-            response = self.client.post("/adminHome",
-                                        data={"username": "admin"})
-        assert session.get("username") == "admin"
-        print(response.data)
+        with self.client as c:
+            rv = c.get('/adminHome')
+            assert flask.session['username'] == "admin"
 #         self.client.post('/adminHome',
 #                          data=dict(username="admin"),
 #                          follow_redirects=True)
