@@ -189,7 +189,6 @@ def pilotHome():
     pilot = mongo.db['pilot'].find_one_or_404({'username': username})
     first_name = pilot['firstName']
     airplaneID = pilot['airplaneID']
-    print(airplaneID)
     try:
         flight = mongo.db['flight'].find_one_or_404({'airplaneID':
                                                      int(airplaneID)})
