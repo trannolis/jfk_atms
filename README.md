@@ -14,7 +14,7 @@ To use the repository, use `git clone https://github.com/trannolis/jfk_atms.git`
 
 Once the contents of the repository are stored onto your computer, you first need to install the relevant libraries, which is done through `pipenv install --dev`.
 
-Afterwards, it is required to install mongodb from https://docs.mongodb.com/manual/installation/ for local testing.
+Afterwards, it is required to install mongodb from https://docs.mongodb.com/manual/installation/ for testing.
 
 Afterwards, it is suggested to run the command `make local`. This should open up a local version of the website on `localhost:5000`.
 
@@ -81,6 +81,6 @@ Runs the flask application on localhost:5000.
 
 Relevant documentation is located in [`jfk_atms/documentation`](https://github.com/trannolis/jfk_atms/tree/master/Documentation)
 
-* [`jfk_atms/documentation/CS4513-SRS-003-Group-A11-1.pdf`](https://github.com/trannolis/jfk_atms/blob/master/Documentation/CS4513-SRS-003-Group-A11-1.pdf)
-* [`jfk_atms/documentation/Terminal Structure and Flight Data Planning.pdf`](https://github.com/trannolis/jfk_atms/blob/master/Documentation/Terminal%20Structure%20and%20Flight%20Data%20Planning.pdf)
-* [`jfk_atms/documentation/atms_component_diagram.png`](https://github.com/trannolis/jfk_atms/blob/master/Documentation/atms_component_diagram.png)
+* [`SRS`](https://github.com/trannolis/jfk_atms/blob/master/Documentation/CS4513-SRS-003-Group-A11-1.pdf)
+* [`Terminal and flight data planning`](https://github.com/trannolis/jfk_atms/blob/master/Documentation/Terminal%20Structure%20and%20Flight%20Data%20Planning.pdf)
+* [`ATMS content diagram`](https://github.com/trannolis/jfk_atms/blob/master/Documentation/atms_component_diagram.png)
