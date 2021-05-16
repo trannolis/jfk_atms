@@ -98,9 +98,8 @@ def registerAdminAuth():
         'phone_no': phone_no})
     return render_template('adminHome.html')
 
+
 # Authenticates the registration for new ATCs
-
-
 @main.route('/registerAtcAuth', methods=['GET', 'POST'])
 def registerAtcAuth():
     """Adds checks for existing Admin user and adds new ATC
@@ -410,13 +409,3 @@ def calculateGate(flightId):
 @main.route('/chatroom', methods=['GET', 'POST'])
 def chatroom():
     return render_template('chatroom.html')
-
-
-# def messageReceived(methods=['GET', 'POST']):
-#     print('message was received!!!')
-
-
-# @socketio.on('my event')
-# def handle_my_custom_event(json, methods=['GET', 'POST']):
-#     print('received my event: ' + str(json))
-#     socketio.emit('my response', json, callback=messageReceived)
