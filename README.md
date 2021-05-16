@@ -14,7 +14,7 @@ To use the repository, use `git clone https://github.com/trannolis/jfk_atms.git`
 
 Once the contents of the repository are stored onto your computer, you first need to install the relevant libraries, which is done through `pipenv install --dev`.
 
-Afterwards, it is required to install mongodb from https://docs.mongodb.com/manual/installation/ for testing. Make sure it is running on localhost:27017
+Afterwards, it is required to install mongodb from https://docs.mongodb.com/manual/installation/ for testing. Make sure it is running on `localhost:27017`.
 
 Afterwards, it is suggested to run the command `make local`. This should open up a local version of the website on `localhost:5000`.
 
