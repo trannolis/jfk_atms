@@ -1,8 +1,5 @@
 from flask import Flask
 from .extensions import mongo, bcrypt
-# from flask_socketio import SocketIO
-
-# socketio = SocketIO()
 
 
 def create_app(config_object='source.settings', debug=False):
@@ -15,8 +12,7 @@ def create_app(config_object='source.settings', debug=False):
 
     mongo.init_app(app)
     bcrypt.init_app(app)
+
     from .main import main
     app.register_blueprint(main)
-
-    # socketio.init_app(app)
     return app
