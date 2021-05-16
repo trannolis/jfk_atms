@@ -1,10 +1,10 @@
 """
-This is the main function for the ATMS
+This is the main file for the ATMS
 """
 
 from flask import render_template, request, session, url_for, redirect,\
     Blueprint
-from .extensions import mongo, bcrypt
+from source.extensions import mongo, bcrypt
 import random
 from math import dist
 from datetime import datetime, timedelta
@@ -13,7 +13,8 @@ main = Blueprint('main', __name__)
 
 @main.route('/')
 def hello():
-    return render_template('landing.html')
+    flag = mongo.db['admin'].find_one() is None
+    return render_template('landing.html', flag=flag)
 
 
 @main.route('/login')

@@ -10,6 +10,10 @@
 <body style="text-align:center">
 	<br>
 	<a href="/login">Login</a>
+	{% if flag %}
+	<br>
+	<a href="/registerAdmin"> Register a new admin (Only shows up once if the database is empty)</a>
+	{% endif %}
 </body>
 
 </html>
