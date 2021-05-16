@@ -13,7 +13,8 @@ main = Blueprint('main', __name__)
 
 @main.route('/')
 def hello():
-    return render_template('landing.html')
+    flag = mongo.db['admin'].find_one() is None
+    return render_template('landing.html', flag=flag)
 
 
 @main.route('/login')
