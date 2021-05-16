@@ -6,6 +6,7 @@ class TestEndpoints(unittest.TestCase):
     def setUp(self):
         self.app = create_app('source.settings', True)
         self.client = self.app.test_client()
+        self.sess = self.client.session_transaction()
 
     def test_landing(self):
         """
@@ -667,6 +668,20 @@ class TestEndpoints(unittest.TestCase):
 #         page_html = str(self.client.get('/logout').data)
 #         login_elem = 'Login'
 #         self.assertIn(login_elem, page_html)
+
+    def test_chatroom(self):
+        """
+        Tests a chatroom
+        """
+        page_html = str(self.client.get('/chatroom').data)
+        title_elem = 'Chatroom'
+        status_elem = 'No message yet..'
+        user_elem = 'User Name'
+        message_elem = 'Messages'
+        self.assertIn(title_elem, page_html)
+        self.assertIn(status_elem, page_html)
+        self.assertIn(user_elem, page_html)
+        self.assertIn(message_elem, page_html)
 
 
 if __name__ == "__main__":
