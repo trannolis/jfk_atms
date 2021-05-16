@@ -221,7 +221,7 @@ class TestEndpoints(unittest.TestCase):
         """
         Tests endpoint for admin home page
         """
-        self.sess['username'] = "admin"
+        self.sess['username']
         page_html = str(self.client.get('/adminHome').data)
         print(page_html)
 #         self.client.post('/adminHome',
